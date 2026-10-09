@@ -190,7 +190,8 @@ HTML
             formData.forEach((value, key) => { data[key] = value; });
 
             // Post directly to your Google Apps Script Web App URL
-            fetch("YOUR_APPS_SCRIPT_WEB_APP_URL_HERE", {
+            fetch("https://script.google.com/macros/s/AKfycbyrsq-A-wsWz28SgMbx1bK7G5DQbuMoekgRTgg0hqCdbAqCrqkL7PrwoJ2zazp1N9x6/exec", {
+
                 method: "POST",
                 mode: "no-cors",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
