@@ -231,17 +231,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         @media(min-width: 768px) {
             .form-card { padding: 32px; }
         }
-        .form-group { margin-bottom: 14px; }
-        .form-label { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #334155; margin-bottom: 5px; }
-        .form-input-wrap { position: relative; }
-        .form-icon { position: absolute; inset-y: 0; left: 0; display: flex; align-items: center; padding-left: 14px; color: #003399; font-size: 15px; }
-        
-        .form-input, .form-select { width: 100%; padding: 13px 14px 13px 42px; background-color: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 16px; color: #0f172a; outline: none; transition: all 0.2s ease; }
-        .form-select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23003399' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; }
-        .form-input:focus, .form-select:focus { border-color: #dc2626; background-color: #fff; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15); }
-        
-        .submit-btn { width: 100%; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: #ffffff; font-weight: 800; padding: 16px 20px; border-radius: 10px; border: none; cursor: pointer; transition: all 0.25s ease; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4); text-transform: uppercase; letter-spacing: 0.03em; }
-        .submit-btn:hover, .submit-btn:active { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); transform: translateY(-1px); box-shadow: 0 8px 25px rgba(220, 38, 38, 0.5); }
 
         .section-white { background-color: #ffffff; color: #0f172a; padding: 60px 16px; }
         .section-dark { background-color: #070d1d; color: #ffffff; padding: 60px 16px; border-top: 1px solid #1e293b; border-bottom: 1px solid #1e293b; }
@@ -431,99 +420,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
 
             <div style="width: 100%; max-width: 440px; flex-shrink: 0;">
-                <div class="form-card" id="buyerFormCard">
-                    <div style="text-align: center; margin-bottom: 20px;">
+                <div class="form-card">
+                    <div style="text-align: center; margin-bottom: 14px;">
                         <h3 style="font-size: 20px; font-weight: 800; color: #0f172a;">Start Your Home Search</h3>
                         <p style="font-size: 13px; color: #64748b; margin-top: 4px; font-weight: 600;">Tell us what you're looking for below</p>
                     </div>
                     
-                    <form id="buyerForm" onsubmit="handleFormSubmit(event)">
-                        <div class="form-group">
-                            <label class="form-label">Preferred Location / Municipality</label>
-                            <div class="form-input-wrap">
-                                <span class="form-icon"><i class="fa-solid fa-location-dot"></i></span>
-                                <input type="text" id="buyerLocation" name="preferredLocation" required placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Property Type Needed</label>
-                            <div class="form-input-wrap">
-                                <span class="form-icon"><i class="fa-solid fa-house"></i></span>
-                                <select id="buyerPropType" name="propertyType" required class="form-select">
-                                    <option value="" disabled selected>Select Property Type...</option>
-                                    <option value="Single Family Home">Single Family Home</option>
-                                    <option value="Semi-Detached">Semi-Detached</option>
-                                    <option value="Townhouse">Townhouse</option>
-                                    <option value="Condominium">Condominium</option>
-                                    <option value="Rural / Acreage / Waterfront">Rural / Acreage / Waterfront</option>
-                                    <option value="Multi-Family / Investment">Multi-Family / Investment</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Target Budget Range</label>
-                            <div class="form-input-wrap">
-                                <span class="form-icon"><i class="fa-solid fa-dollar-sign"></i></span>
-                                <select id="buyerBudget" name="budgetRange" required class="form-select">
-                                    <option value="" disabled selected>Select Budget Range...</option>
-                                    <option value="Under $400,000">Under $400,000</option>
-                                    <option value="$400,000 - $550,000">$400,000 - $550,000</option>
-                                    <option value="$550,000 - $700,000">$550,000 - $700,000</option>
-                                    <option value="$700,000 - $900,000">$700,000 - $900,000</option>
-                                    <option value="$900,000+">$900,000+</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="background-color: #f1f5f9; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; margin-bottom: 14px;">
-                            <label class="form-label" style="margin-bottom: 6px;">Are you currently working with a REALTOR®?</label>
-                            <div style="display: flex; gap: 24px; align-items: center;">
-                                <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #0f172a; cursor: pointer;">
-                                    <input type="radio" name="workingWithAgent" value="Yes" style="accent-color: #dc2626; width: 16px; height: 16px;"> Yes
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #0f172a; cursor: pointer;">
-                                    <input type="radio" name="workingWithAgent" value="No" checked style="accent-color: #dc2626; width: 16px; height: 16px;"> No
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Your Name</label>
-                            <div class="form-input-wrap">
-                                <span class="form-icon"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" id="buyerName" name="buyerName" required placeholder="e.g., Jane Doe" class="form-input">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <div class="form-input-wrap">
-                                <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="buyerPhone" name="phone" required placeholder="(613) 203-3313" class="form-input">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <div class="form-input-wrap">
-                                <span class="form-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <input type="email" id="buyerEmail" name="email" required placeholder="yourname@example.com" class="form-input">
-                            </div>
-                        </div>
-
-                        <button type="submit" class="submit-btn" style="margin-top: 10px;">
-                            <span>Get Custom Listings</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                        <p style="font-size: 11px; text-align: center; color: #64748b; margin-top: 10px; font-weight: 600;">🔒 Your privacy is strictly protected.</p>
-                    </form>
-
-                    <div id="formSuccess" style="display: none; text-align: center; padding: 28px 0;">
-                        <div style="width: 60px; height: 60px; background-color: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px; font-weight: bold;">✓</div>
-                        <h4 style="font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">Request Received!</h4>
-                        <p style="font-size: 15px; color: #475569; line-height: 1.6; font-weight: 500;">Thank you! Prakash Solanki reviews your search criteria and reaches out promptly with curated MLS® properties matching your needs.</p>
+                    <!-- Embedded Live Google Form -->
+                    <div style="width: 100%; overflow: hidden; border-radius: 12px;">
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfdlvSzxw7HZ6SeXAc4ZEAbCYPsrgdH4GCR1IB9iU-bt4LjQ/viewform?embedded=true" width="100%" height="620" frameborder="0" marginheight="0" marginwidth="0" style="background: transparent;">Loading…</iframe>
                     </div>
                 </div>
             </div>
@@ -656,40 +561,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             Proudly serving families across Ottawa Valley.
         </div>
     </footer>
-
-    <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVayv0MkesiuL_WIBCPRzMgM79-Q6lYe9uXcI0wVdlnrXN9q-A5V8lvjM9bXPcLBj9/exec";
-
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const formCard = document.getElementById('buyerFormCard');
-            const myForm = document.getElementById('buyerForm');
-            
-            const inputs = myForm.querySelectorAll('input:not([type="radio"]), select');
-            for (let input of inputs) {
-                if (!input.value || input.value.trim() === '') {
-                    input.focus();
-                    return;
-                }
-            }
-
-            const formData = new FormData(myForm);
-            const data = {};
-            formData.forEach((value, key) => { data[key] = value; });
-
-            // Post directly to your Google Apps Script Web App URL
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify(data)
-            }).catch((error) => console.log('Form submission error:', error));
-
-            myForm.style.display = 'none';
-            document.getElementById('formSuccess').style.display = 'block';
-            formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    </script>
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V284XS7"
