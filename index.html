@@ -661,41 +661,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVayv0MkesiuL_WIBCPRzMgM79-Q6lYe9uXcI0wVdlnrXN9q-A5V8lvjM9bXPcLBj9/exec";
       
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVayv0MkesiuL_WIBCPRzMgM79-Q6lYe9uXcI0wVdlnrXN9q-A5V8lvjM9bXPcLBj9/exec";
 
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const formCard = document.getElementById('buyerFormCard');
-            const myForm = document.getElementById('buyerForm');
-            
-            const inputs = myForm.querySelectorAll('input:not([type="radio"]), select');
-            for (let input of inputs) {
-                if (!input.value || input.value.trim() === '') {
-                    input.focus();
-                    return;
-                }
-            }
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    const myForm = document.getElementById('buyerForm');
+    const formCard = document.getElementById('buyerFormCard');
 
-            const formData = new FormData(myForm);
-           const data = {};
-    formData.forEach((value, key) => { data[key] = value; });
+    let iframe = document.getElementById('hidden_iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.id = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
 
-    // Convert data to URLSearchParams for reliable no-cors transmission
-    const encodedData = new URLSearchParams(data).toString();
+    myForm.action = SCRIPT_URL;
+    myForm.method = "POST";
+    myForm.target = "hidden_iframe";
 
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: encodedData
-    });
-            myForm.style.display = 'none';
-            document.getElementById('formSuccess').style.display = 'block';
-            formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    </script>
+    myForm.submit();
 
+    myForm.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
+        
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V284XS7"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
