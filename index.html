@@ -15,6 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5V284XS7');</script>
 <!-- End Google Tag Manager -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -436,12 +437,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <p style="font-size: 13px; color: #64748b; margin-top: 4px; font-weight: 600;">Tell us what you're looking for below</p>
                     </div>
                     
-                    <form id="buyerForm" onsubmit="handleFormSubmit(event)">
+                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdlvSzxw7HZ6SeXAc4ZEAbCYPsrgdH4GCR1IB9iU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
                         <div class="form-group">
                             <label class="form-label">Preferred Location / Municipality</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-location-dot"></i></span>
-                                <input type="text" id="buyerLocation" name="preferredLocation" required placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
+                                <input type="text" id="buyerLocation" name="entry.1000001" required placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
                             </div>
                         </div>
 
@@ -449,7 +450,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Property Type Needed</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-house"></i></span>
-                                <select id="buyerPropType" name="propertyType" required class="form-select">
+                                <select id="buyerPropType" name="entry.1000002" required class="form-select">
                                     <option value="" disabled selected>Select Property Type...</option>
                                     <option value="Single Family Home">Single Family Home</option>
                                     <option value="Semi-Detached">Semi-Detached</option>
@@ -465,7 +466,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Target Budget Range</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-dollar-sign"></i></span>
-                                <select id="buyerBudget" name="budgetRange" required class="form-select">
+                                <select id="buyerBudget" name="entry.1000003" required class="form-select">
                                     <option value="" disabled selected>Select Budget Range...</option>
                                     <option value="Under $400,000">Under $400,000</option>
                                     <option value="$400,000 - $550,000">$400,000 - $550,000</option>
@@ -480,10 +481,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label" style="margin-bottom: 6px;">Are you currently working with a REALTOR®?</label>
                             <div style="display: flex; gap: 24px; align-items: center;">
                                 <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #0f172a; cursor: pointer;">
-                                    <input type="radio" name="workingWithAgent" value="Yes" style="accent-color: #dc2626; width: 16px; height: 16px;"> Yes
+                                    <input type="radio" name="entry.1000004" value="Yes" style="accent-color: #dc2626; width: 16px; height: 16px;"> Yes
                                 </label>
                                 <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #0f172a; cursor: pointer;">
-                                    <input type="radio" name="workingWithAgent" value="No" checked style="accent-color: #dc2626; width: 16px; height: 16px;"> No
+                                    <input type="radio" name="entry.1000004" value="No" checked style="accent-color: #dc2626; width: 16px; height: 16px;"> No
                                 </label>
                             </div>
                         </div>
@@ -492,7 +493,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Your Name</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" id="buyerName" name="buyerName" required placeholder="e.g., Jane Doe" class="form-input">
+                                <input type="text" id="buyerName" name="entry.1000005" required placeholder="e.g., Jane Doe" class="form-input">
                             </div>
                         </div>
 
@@ -500,7 +501,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="buyerPhone" name="phone" required placeholder="(613) 203-3313" class="form-input">
+                                <input type="tel" id="buyerPhone" name="entry.1000006" required placeholder="(613) 203-3313" class="form-input">
                             </div>
                         </div>
 
@@ -508,7 +509,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Email Address</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <input type="email" id="buyerEmail" name="email" required placeholder="yourname@example.com" class="form-input">
+                                <input type="email" id="buyerEmail" name="entry.1000007" required placeholder="yourname@example.com" class="form-input">
                             </div>
                         </div>
 
@@ -518,6 +519,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         </button>
                         <p style="font-size: 11px; text-align: center; color: #64748b; margin-top: 10px; font-weight: 600;">🔒 Your privacy is strictly protected.</p>
                     </form>
+                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { document.getElementById('buyerForm').style.display='none'; document.getElementById('formSuccess').style.display='block'; }"></iframe>
 
                     <div id="formSuccess" style="display: none; text-align: center; padding: 28px 0;">
                         <div style="width: 60px; height: 60px; background-color: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px; font-weight: bold;">✓</div>
@@ -655,40 +657,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             Proudly serving families across Ottawa Valley.
         </div>
     </footer>
-<script>
-      const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/20869389/2uvj3y0/";
 
-      function handleFormSubmit(event) {
-        event.preventDefault();
-        const myForm = document.getElementById('buyerForm');
-        const formCard = document.getElementById('buyerFormCard');
-
-        // Create a hidden iframe to catch the response and prevent page redirection
-        let iframe = document.getElementById('hidden_iframe');
-        if (!iframe) {
-          iframe = document.createElement('iframe');
-          iframe.name = 'hidden_iframe';
-          iframe.id = 'hidden_iframe';
-          iframe.style.display = 'none';
-          document.body.appendChild(iframe);
-        }
-
-        myForm.target = 'hidden_iframe';
-        myForm.action = ZAPIER_WEBHOOK_URL;
-        myForm.method = 'POST';
-        
-        // Submit the form natively
-        myForm.submit();
-
-        // Show success message smoothly on the page
-        setTimeout(() => {
-          myForm.style.display = 'none';
-          document.getElementById('formSuccess').style.display = 'block';
-          formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 500);
-      }
+    <script>
+        var submitted = false;
     </script>
-        
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V284XS7"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
