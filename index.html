@@ -655,8 +655,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             Proudly serving families across Ottawa Valley.
         </div>
     </footer>
-
-    <script>
+<script>
       const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/20869389/2uvj3y0/";
 
       function handleFormSubmit(event) {
@@ -664,27 +663,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         const myForm = document.getElementById('buyerForm');
         const formCard = document.getElementById('buyerFormCard');
 
-        const formData = new FormData(myForm);
-        const data = {};
-        formData.forEach((value, key) => { data[key] = value; });
+        // Create a hidden iframe to catch the response and prevent page redirection
+        let iframe = document.getElementById('hidden_iframe');
+        if (!iframe) {
+          iframe = document.createElement('iframe');
+          iframe.name = 'hidden_iframe';
+          iframe.id = 'hidden_iframe';
+          iframe.style.display = 'none';
+          document.body.appendChild(iframe);
+        }
 
-        fetch(ZAPIER_WEBHOOK_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        }).then(() => {
+        myForm.target = 'hidden_iframe';
+        myForm.action = ZAPIER_WEBHOOK_URL;
+        myForm.method = 'POST';
+        
+        // Submit the form natively
+        myForm.submit();
+
+        // Show success message smoothly on the page
+        setTimeout(() => {
           myForm.style.display = 'none';
           document.getElementById('formSuccess').style.display = 'block';
           formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }).catch((error) => {
-          console.error('Error:', error);
-          myForm.style.display = 'none';
-          document.getElementById('formSuccess').style.display = 'block';
-          formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
+        }, 500);
       }
     </script>
         
