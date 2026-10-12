@@ -456,14 +456,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l!='+l:'';j.async=true;j.src=
                     <!-- Hidden iframe for background submission without page reload -->
                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(isSubmitted) { showSuccessMessage(); }"></iframe>
 
-                   <!-- Wired directly to your Google Form response endpoint with exact field IDs and options -->
-                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR11B9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted();">
+                    <!-- Wired directly to your Google Form response endpoint with exact field IDs -->
+                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdDB9fhqRgId80FQxP5BSj16w5U0du8uOOoWRg30jQ8HMUuhA/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted();">
+                        <input type="hidden" name="form-name" value="ottawaValleyBuyerLead" />
 
                         <div class="form-group">
                             <label class="form-label">Preferred Neighborhood / Town / Area</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-location-dot"></i></span>
-                                <input type="text" id="buyerLocation" name="entry.1138556351" required placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
+                                <input type="text" id="buyerLocation" name="entry.39196713" required placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
                             </div>
                         </div>
 
@@ -471,14 +472,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l!='+l:'';j.async=true;j.src=
                             <label class="form-label">Property Type Needed</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-house"></i></span>
-                                <select id="buyerPropType" name="entry.1311264880" required class="form-select">
+                                <select id="buyerPropType" name="entry.186385708" required class="form-select">
                                     <option value="" disabled selected>Select Property Type...</option>
                                     <option value="Single Family Home">Single Family Home</option>
-                                    <option value="Semi-Detached">Semi-Detached</option>
-                                    <option value="Townhouse">Townhouse</option>
-                                    <option value="Condominium">Condominium</option>
-                                    <option value="Rural / Acreage / Waterfront">Rural / Acreage / Waterfront</option>
-                                    <option value="Multi-Family / Investment">Multi-Family / Investment</option>
+                                    <option value="Country / Acreage Property">Country / Acreage Property</option>
+                                    <option value="Waterfront">Waterfront</option>
+                                    <option value="Townhouse / Semi">Townhouse / Semi</option>
+                                    <option value="Investment / Multi-Family">Investment / Multi-Family</option>
                                 </select>
                             </div>
                         </div>
@@ -487,12 +487,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l!='+l:'';j.async=true;j.src=
                             <label class="form-label">Target Budget Range</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-dollar-sign"></i></span>
-                                <select id="buyerBudget" name="entry.1800247506" required class="form-select">
+                                <select id="buyerBudget" name="entry.1374889449" required class="form-select">
                                     <option value="" disabled selected>Select Budget Range...</option>
                                     <option value="Under $400,000">Under $400,000</option>
-                                    <option value="$400,000 - $550,000">$400,000 - $550,000</option>
-                                    <option value="$550,000 - $700,000">$550,000 - $700,000</option>
-                                    <option value="$700,000+">$700,000+</option>
+                                    <option value="$400,000 - $600,000">$400,000 - $600,000</option>
+                                    <option value="$600,000 - $800,000">$600,000 - $800,000</option>
+                                    <option value="$800,000+">$800,000+</option>
                                 </select>
                             </div>
                         </div>
@@ -502,10 +502,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l!='+l:'';j.async=true;j.src=
                             <label class="form-label" style="margin-bottom: 6px;">Are you currently working with a REALTOR®?</label>
                             <div style="display: flex; gap: 24px; align-items: center;">
                                 <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #0f172a; cursor: pointer;">
-                                    <input type="radio" name="entry.16671913" value="Yes" style="accent-color: #dc2626; width: 16px; height: 16px;"> Yes
+                                    <input type="radio" name="entry.2082947255" value="Yes" style="accent-color: #dc2626; width: 16px; height: 16px;"> Yes
                                 </label>
                                 <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #0f172a; cursor: pointer;">
-                                    <input type="radio" name="entry.16671913" value="No" checked style="accent-color: #dc2626; width: 16px; height: 16px;"> No
+                                    <input type="radio" name="entry.2082947255" value="No" checked style="accent-color: #dc2626; width: 16px; height: 16px;"> No
                                 </label>
                             </div>
                         </div>
@@ -514,7 +514,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l!='+l:'';j.async=true;j.src=
                             <label class="form-label">Your Name</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" id="buyerName" name="entry.1924118657" required placeholder="e.g., Jane Doe" class="form-input">
+                                <input type="text" id="buyerName" name="entry.1170977956" required placeholder="e.g., Jane Doe" class="form-input">
                             </div>
                         </div>
 
@@ -522,7 +522,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l!='+l:'';j.async=true;j.src=
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="buyerPhone" name="entry.1490479457" required placeholder="(613) 203-3313" class="form-input">
+                                <input type="tel" id="buyerPhone" name="entry.1698942491" required placeholder="(613) 203-3313" class="form-input">
                             </div>
                         </div>
 
@@ -530,7 +530,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l!='+l:'';j.async=true;j.src=
                             <label class="form-label">Email Address</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <input type="email" id="buyerEmail" name="entry.1908849394" required placeholder="yourname@example.com" class="form-input">
+                                <input type="email" id="buyerEmail" name="entry.863177044" required placeholder="yourname@example.com" class="form-input">
                             </div>
                         </div>
 
@@ -540,6 +540,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l!='+l:'';j.async=true;j.src=
                         </button>
                         <p style="font-size: 11px; text-align: center; color: #64748b; margin-top: 10px; font-weight: 600;">🔒 Your privacy is strictly protected.</p>
                     </form>
+
                     <div id="formSuccess" style="display: none; text-align: center; padding: 28px 0;">
                         <div style="width: 60px; height: 60px; background-color: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px; font-weight: bold;">✓</div>
                         <h4 style="font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">Request Received!</h4>
