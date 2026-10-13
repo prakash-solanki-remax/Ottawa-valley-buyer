@@ -242,16 +242,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Preferred Neighborhood / Town / Area</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-location-dot"></i></span>
-                                <input type="text" id="buyerLocation" name="entry.1138556351" required placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
+                                <input type="text" id="buyerLocation" name="entry.1138556351" placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
                             </div>
-                            <div id="locationError" class="field-msg">Please enter a valid neighborhood name (letters only).</div>
+                            <div id="locationError" class="field-msg">Please enter a valid neighborhood name (cannot be blank).</div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Property Type Needed</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-house"></i></span>
-                                <select id="buyerPropType" name="entry.1311264880" required class="form-select">
+                                <select id="buyerPropType" name="entry.1311264880" class="form-select">
                                     <option value="" disabled selected>Select Property Type...</option>
                                     <option value="Single Family Home">Single Family Home</option>
                                     <option value="Semi-Detached">Semi-Detached</option>
@@ -267,7 +267,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Target Budget Range</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-dollar-sign"></i></span>
-                                <select id="buyerBudget" name="entry.1800247506" required class="form-select">
+                                <select id="buyerBudget" name="entry.1800247506" class="form-select">
                                     <option value="" disabled selected>Select Budget Range...</option>
                                     <option value="Under $400,000">Under $400,000</option>
                                     <option value="$400,000 - $550,000">$400,000 - $550,000</option>
@@ -295,27 +295,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Your Name</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" id="buyerName" name="entry.1924118657" required autocomplete="name" placeholder="e.g., Jane Doe" class="form-input">
+                                <input type="text" id="buyerName" name="entry.1924118657" autocomplete="name" placeholder="e.g., Jane Doe" class="form-input">
                             </div>
-                            <div id="nameError" class="field-msg">Please enter a valid name using letters only.</div>
+                            <div id="nameError" class="field-msg">Please enter a valid name (cannot be blank).</div>
                         </div>
 
-                        <!-- Phone Field (Strictly Non-Null & 10 Digits) -->
+                        <!-- Phone Field -->
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="buyerPhone" name="entry.1490479457" required autocomplete="tel" placeholder="(613) 203-3313" class="form-input" maxlength="14">
+                                <input type="tel" id="buyerPhone" name="entry.1490479457" autocomplete="tel" placeholder="(613) 203-3313" class="form-input" maxlength="14">
                             </div>
                             <div id="phoneError" class="field-msg">Please enter a valid 10-digit phone number (cannot be blank).</div>
                         </div>
 
-                        <!-- Email Field (Strictly Non-Null & Valid Format) -->
+                        <!-- Email Field -->
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <input type="email" id="buyerEmail" name="entry.1908849394" required autocomplete="email" placeholder="yourname@example.com" class="form-input">
+                                <input type="email" id="buyerEmail" name="entry.1908849394" autocomplete="email" placeholder="yourname@example.com" class="form-input">
                             </div>
                             <div id="emailError" class="field-msg">Please enter a valid email address (cannot be blank).</div>
                         </div>
@@ -464,9 +464,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
-    <!-- Strict Field Validation Scripts: Enforces Non-Null Phone & Email -->
+    <!-- Strict Single-Field Lock Validation Engine -->
     <script>
         let isSubmitted = false;
+        let activeLockField = null;
 
         document.addEventListener("DOMContentLoaded", function() {
             const locationInput = document.getElementById("buyerLocation");
@@ -479,58 +480,86 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneError = document.getElementById("phoneError");
             const emailError = document.getElementById("emailError");
 
-            // 1. NEIGHBORHOOD FIELD
+            const allInputs = [locationInput, nameInput, phoneInput, emailInput];
+
+            // Prevents focusing on any other field if one field is locked
+            allInputs.forEach(input => {
+                input.addEventListener("focus", function() {
+                    if (activeLockField && activeLockField !== this) {
+                        activeLockField.focus();
+                    }
+                });
+            });
+
+            // 1. NEIGHBORHOOD VALIDATION
             locationInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
-                locationError.style.display = "none";
-                this.classList.remove("input-error");
+                if (this.value.trim() !== "") {
+                    locationError.style.display = "none";
+                    this.classList.remove("input-error");
+                    if (activeLockField === this) activeLockField = null;
+                }
             });
             locationInput.addEventListener("blur", function() {
                 if (this.value.trim() === "" || /\d/.test(this.value)) {
                     locationError.style.display = "block";
                     this.classList.add("input-error");
+                    activeLockField = this;
                     setTimeout(() => this.focus(), 10);
                 }
             });
 
-            // 2. NAME FIELD
+            // 2. NAME VALIDATION
             nameInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
-                nameError.style.display = "none";
-                this.classList.remove("input-error");
+                if (this.value.trim().length >= 2 && !/\d/.test(this.value)) {
+                    nameError.style.display = "none";
+                    this.classList.remove("input-error");
+                    if (activeLockField === this) activeLockField = null;
+                }
             });
             nameInput.addEventListener("blur", function() {
                 if (this.value.trim() === "" || /\d/.test(this.value) || this.value.trim().length < 2) {
                     nameError.style.display = "block";
                     this.classList.add("input-error");
+                    activeLockField = this;
                     setTimeout(() => this.focus(), 10);
                 }
             });
 
-            // 3. PHONE FIELD (Strictly Non-Null & Exactly 10 Digits)
+            // 3. PHONE VALIDATION (Enforces exact 10 digits)
             phoneInput.addEventListener("input", function() {
                 this.value = this.value.replace(/\D/g, '').slice(0, 10);
-                phoneError.style.display = "none";
-                this.classList.remove("input-error");
+                const digits = this.value.replace(/\D/g, '');
+                if (digits.length === 10) {
+                    phoneError.style.display = "none";
+                    this.classList.remove("input-error");
+                    if (activeLockField === this) activeLockField = null;
+                }
             });
             phoneInput.addEventListener("blur", function() {
                 const digits = this.value.replace(/\D/g, '');
                 if (digits.length !== 10) {
                     phoneError.style.display = "block";
                     this.classList.add("input-error");
+                    activeLockField = this;
                     setTimeout(() => this.focus(), 10);
                 }
             });
 
-            // 4. EMAIL FIELD (Strictly Non-Null & Valid Format)
+            // 4. EMAIL VALIDATION
             emailInput.addEventListener("input", function() {
-                emailError.style.display = "none";
-                this.classList.remove("input-error");
+                if (this.value.trim() !== "" && this.value.includes('@') && this.value.includes('.')) {
+                    emailError.style.display = "none";
+                    this.classList.remove("input-error");
+                    if (activeLockField === this) activeLockField = null;
+                }
             });
             emailInput.addEventListener("blur", function() {
                 if (this.value.trim() === "" || !this.value.includes('@') || !this.value.includes('.')) {
                     emailError.style.display = "block";
                     this.classList.add("input-error");
+                    activeLockField = this;
                     setTimeout(() => this.focus(), 10);
                 }
             });
@@ -542,41 +571,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            let valid = true;
-
             if (/\d/.test(locationInput.value) || locationInput.value.trim() === "") {
                 document.getElementById("locationError").style.display = "block";
                 locationInput.classList.add("input-error");
-                if (valid) locationInput.focus();
-                valid = false;
+                activeLockField = locationInput;
+                locationInput.focus();
+                return false;
             }
 
             if (/\d/.test(nameInput.value) || nameInput.value.trim().length < 2) {
                 document.getElementById("nameError").style.display = "block";
                 nameInput.classList.add("input-error");
-                if (valid) nameInput.focus();
-                valid = false;
+                activeLockField = nameInput;
+                nameInput.focus();
+                return false;
             }
 
             const cleanPhone = phoneInput.value.replace(/\D/g, '');
             if (cleanPhone.length !== 10) {
                 document.getElementById("phoneError").style.display = "block";
                 phoneInput.classList.add("input-error");
-                if (valid) phoneInput.focus();
-                valid = false;
+                activeLockField = phoneInput;
+                phoneInput.focus();
+                return false;
             }
 
             if (emailInput.value.trim() === "" || !emailInput.value.includes('@') || !emailInput.value.includes('.')) {
                 document.getElementById("emailError").style.display = "block";
                 emailInput.classList.add("input-error");
-                if (valid) emailInput.focus();
-                valid = false;
+                activeLockField = emailInput;
+                emailInput.focus();
+                return false;
             }
 
-            if (valid) {
-                isSubmitted = true;
-            }
-            return valid;
+            isSubmitted = true;
+            return true;
         }
 
         function showSuccessMessage() {
