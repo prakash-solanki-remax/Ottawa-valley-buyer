@@ -232,10 +232,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(isSubmitted) { showSuccessMessage(); }"></iframe>
 
-                    <!-- Form with autofill and strict input validations enabled -->
-                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted();" autocomplete="on">
+                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="return validateAndSubmit(event);" autocomplete="on">
                         <input type="hidden" name="form-name" value="ottawaValleyBuyerLead" />
 
+                        <!-- Neighborhood Field (Cannot contain numbers) -->
                         <div class="form-group">
                             <label class="form-label">Preferred Neighborhood / Town / Area</label>
                             <div class="form-input-wrap">
@@ -287,30 +287,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
-                        <!-- Name field with strict character check and autocomplete -->
+                        <!-- Name Field (Cannot contain numbers) -->
                         <div class="form-group">
                             <label class="form-label">Your Name</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" id="buyerName" name="entry.1924118657" required autocomplete="name" pattern="^[a-zA-Z\s'-]{2,50}$" title="Please enter a valid name using letters only (no numbers or special characters)." placeholder="e.g., Jane Doe" class="form-input">
+                                <input type="text" id="buyerName" name="entry.1924118657" required autocomplete="name" placeholder="e.g., Jane Doe" class="form-input">
                             </div>
                         </div>
 
-                        <!-- Phone field with strict 10-digit check and autocomplete -->
+                        <!-- Phone Field (Must be 10 digits) -->
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="buyerPhone" name="entry.1490479457" required autocomplete="tel" pattern="^(\+?1[\s-]?)?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}$" title="Please enter a valid 10-digit phone number (e.g., 6132033313)." placeholder="(613) 203-3313" class="form-input">
+                                <input type="tel" id="buyerPhone" name="entry.1490479457" required autocomplete="tel" placeholder="(613) 203-3313" class="form-input">
                             </div>
                         </div>
 
-                        <!-- Email field with strict @ check and autocomplete -->
+                        <!-- Email Field (Must contain @) -->
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <input type="email" id="buyerEmail" name="entry.1908849394" required autocomplete="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address containing an @ sign." placeholder="yourname@example.com" class="form-input">
+                                <input type="email" id="buyerEmail" name="entry.1908849394" required autocomplete="email" placeholder="yourname@example.com" class="form-input">
                             </div>
                         </div>
 
@@ -458,11 +458,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
+    <!-- Form Validation and Submission Script -->
     <script>
         let isSubmitted = false;
 
-        function submitted() {
+        function validateAndSubmit(event) {
+            const locationInput = document.getElementById('buyerLocation');
+            const nameInput = document.getElementById('buyerName');
+            const phoneInput = document.getElementById('buyerPhone');
+            const emailInput = document.getElementById('buyerEmail');
+
+            // 1. Validate Preferred Neighborhood (Must NOT contain numbers)
+            if (/\d/.test(locationInput.value)) {
+                alert("Preferred Neighborhood / Town / Area cannot contain numbers. Please enter text only.");
+                locationInput.focus();
+                return false;
+            }
+
+            // 2. Validate Name (Must NOT contain numbers)
+            if (/\d/.test(nameInput.value)) {
+                alert("Your Name cannot contain numbers. Please enter a valid name.");
+                nameInput.focus();
+                return false;
+            }
+
+            // 3. Validate Phone Number (Must be exactly 10 digits)
+            const cleanPhone = phoneInput.value.replace(/\D/g, ''); // strip non-digits
+            if (cleanPhone.length !== 10) {
+                alert("Phone Number must be exactly 10 digits. (e.g., 6132033313)");
+                phoneInput.focus();
+                return false;
+            }
+
+            // 4. Validate Email (Must contain @ and a domain)
+            if (!emailInput.value.includes('@') || !emailInput.value.includes('.')) {
+                alert("Please enter a valid email address with an '@' symbol.");
+                emailInput.focus();
+                return false;
+            }
+
+            // If all validations pass, proceed with submission
             isSubmitted = true;
+            return true;
         }
 
         function showSuccessMessage() {
