@@ -236,7 +236,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="return validateForm();" autocomplete="on">
                         <input type="hidden" name="form-name" value="ottawaValleyBuyerLead" />
 
-                        <!-- Neighborhood: Locks if numbers exist -->
+                        <!-- Neighborhood Field -->
                         <div class="form-group">
                             <label class="form-label">Preferred Neighborhood / Town / Area</label>
                             <div class="form-input-wrap">
@@ -288,7 +288,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
-                        <!-- Name: Locks focus if numbers exist -->
+                        <!-- Name Field -->
                         <div class="form-group">
                             <label class="form-label">Your Name</label>
                             <div class="form-input-wrap">
@@ -297,7 +297,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
-                        <!-- Phone: Strictly 10 digits -->
+                        <!-- Phone Field -->
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
@@ -306,7 +306,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
-                        <!-- Email Address -->
+                        <!-- Email Field -->
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
                             <div class="form-input-wrap">
@@ -459,7 +459,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
-    <!-- Strict Field Focus-Locking Scripts -->
+    <!-- Strict Field Focus-Locking Validation Scripts -->
     <script>
         let isSubmitted = false;
 
@@ -469,13 +469,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            // 1. NEIGHBORHOOD FIELD: Strip numbers as typed, lock cursor if invalid on blur
+            // 1. NEIGHBORHOOD FIELD: Strip numbers as typed, lock focus if invalid on blur
             locationInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
             });
             locationInput.addEventListener("blur", function() {
                 if (this.value.trim() !== "" && /\d/.test(this.value)) {
-                    alert("Neighborhood cannot contain numbers. Please enter text only.");
+                    alert("Please enter a valid neighborhood name (numbers are not allowed).");
                     this.classList.add("input-error");
                     setTimeout(() => this.focus(), 10);
                 } else {
@@ -483,13 +483,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 }
             });
 
-            // 2. NAME FIELD: Strip numbers as typed, lock cursor if invalid on blur
+            // 2. NAME FIELD: Strip numbers as typed, lock focus if invalid on blur
             nameInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
             });
             nameInput.addEventListener("blur", function() {
                 if (this.value.trim() !== "" && (/\d/.test(this.value) || this.value.trim().length < 2)) {
-                    alert("Your name must contain letters only (no numbers).");
+                    alert("Please enter a valid name using letters only.");
                     this.classList.add("input-error");
                     setTimeout(() => this.focus(), 10);
                 } else {
@@ -504,7 +504,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             phoneInput.addEventListener("blur", function() {
                 const digits = this.value.replace(/\D/g, '');
                 if (digits.length > 0 && digits.length !== 10) {
-                    alert("Phone number must be a valid 10-digit number.");
+                    alert("Please enter a valid 10-digit phone number (e.g., 6132033313).");
                     this.classList.add("input-error");
                     setTimeout(() => this.focus(), 10);
                 } else {
@@ -531,18 +531,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const emailInput = document.getElementById("buyerEmail");
 
             if (/\d/.test(locationInput.value)) {
-                alert("Preferred Neighborhood cannot contain numbers.");
+                alert("Please enter a valid neighborhood name (numbers are not allowed).");
                 locationInput.focus();
                 return false;
             }
-            if (/\d/.test(nameInput.value)) {
-                alert("Your name cannot contain numbers.");
+            if (/\d/.test(nameInput.value) || nameInput.value.trim().length < 2) {
+                alert("Please enter a valid name using letters only.");
                 nameInput.focus();
                 return false;
             }
             const cleanPhone = phoneInput.value.replace(/\D/g, '');
             if (cleanPhone.length !== 10) {
-                alert("Phone number must be exactly 10 digits.");
+                alert("Please enter a valid 10-digit phone number.");
                 phoneInput.focus();
                 return false;
             }
