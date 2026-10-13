@@ -300,14 +300,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <div id="nameError" class="field-msg">Please enter a valid name using letters only.</div>
                         </div>
 
-                        <!-- Phone Field -->
+                        <!-- Phone Field (Cannot be null/empty, must be 10 digits) -->
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
                                 <input type="tel" id="buyerPhone" name="entry.1490479457" required autocomplete="tel" placeholder="(613) 203-3313" class="form-input" maxlength="14">
                             </div>
-                            <div id="phoneError" class="field-msg">Please enter a valid 10-digit phone number (e.g., 6132033313).</div>
+                            <div id="phoneError" class="field-msg">Please enter a valid 10-digit phone number (cannot be blank).</div>
                         </div>
 
                         <!-- Email Field -->
@@ -464,7 +464,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
-    <!-- Field Validation Scripts without standard browser alerts -->
+    <!-- Field Validation Scripts: Enforces Non-Null Phone Number -->
     <script>
         let isSubmitted = false;
 
@@ -507,7 +507,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 }
             });
 
-            // 3. PHONE FIELD
+            // 3. PHONE FIELD (Strictly non-null & exactly 10 digits)
             phoneInput.addEventListener("input", function() {
                 this.value = this.value.replace(/\D/g, '').slice(0, 10);
                 phoneError.style.display = "none";
@@ -515,7 +515,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             });
             phoneInput.addEventListener("blur", function() {
                 const digits = this.value.replace(/\D/g, '');
-                if (digits.length > 0 && digits.length !== 10) {
+                if (digits.length !== 10) {
                     phoneError.style.display = "block";
                     this.classList.add("input-error");
                     setTimeout(() => this.focus(), 10);
