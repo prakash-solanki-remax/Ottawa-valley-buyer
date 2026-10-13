@@ -466,8 +466,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
+    <!-- Strict Focus Trap Validation Engine -->
     <script>
         let isSubmitted = false;
+        let lockedInput = null;
 
         document.addEventListener("DOMContentLoaded", function() {
             const locationInput = document.getElementById("buyerLocation");
@@ -477,28 +479,55 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            // Strip numbers live from Location
+            const allInputs = [locationInput, propTypeSelect, budgetSelect, nameInput, phoneInput, emailInput];
+
+            // Focus trap: Intercept any focus event if a field is currently locked
+            allInputs.forEach(input => {
+                input.addEventListener("focus", function(e) {
+                    if (lockedInput && lockedInput !== this) {
+                        e.preventDefault();
+                        lockedInput.focus();
+                    }
+                });
+            });
+
+            // Strip numbers live from Location & Name
             locationInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
-                clearError("buyerLocation", "locationError");
+                if (this.value.trim() !== "") clearError("buyerLocation", "locationError");
             });
 
-            // Strip numbers live from Name
             nameInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
-                clearError("buyerName", "nameError");
+                if (this.value.trim().length >= 2) clearError("buyerName", "nameError");
             });
 
-            // Format phone digits live
+            // Live Phone Validation (Unlocks as soon as 10 digits are entered)
             phoneInput.addEventListener("input", function() {
                 this.value = this.value.replace(/\D/g, '').slice(0, 10);
-                clearError("buyerPhone", "phoneError");
+                if (this.value.length === 10) {
+                    clearError("buyerPhone", "phoneError");
+                }
             });
 
-            // Clear errors on change
-            propTypeSelect.addEventListener("change", function() { clearError("buyerPropType", "propTypeError"); });
-            budgetSelect.addEventListener("change", function() { clearError("buyerBudget", "budgetError"); });
-            emailInput.addEventListener("input", function() { clearError("buyerEmail", "emailError"); });
+            phoneInput.addEventListener("blur", function() {
+                if (this.value.length !== 10) {
+                    showError("buyerPhone", "phoneError");
+                }
+            });
+
+            // Live Email Validation
+            emailInput.addEventListener("input", function() {
+                if (this.value.trim() !== "" && this.value.includes('@') && this.value.includes('.')) {
+                    clearError("buyerEmail", "emailError");
+                }
+            });
+
+            emailInput.addEventListener("blur", function() {
+                if (this.value.trim() === "" || !this.value.includes('@') || !this.value.includes('.')) {
+                    showError("buyerEmail", "emailError");
+                }
+            });
         });
 
         function clearError(inputId, errorId) {
@@ -506,6 +535,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const error = document.getElementById(errorId);
             if (input) input.classList.remove("input-error");
             if (error) error.style.display = "none";
+            if (lockedInput === input) lockedInput = null;
         }
 
         function showError(inputId, errorId) {
@@ -513,17 +543,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const error = document.getElementById(errorId);
             if (input) {
                 input.classList.add("input-error");
-                input.focus();
+                lockedInput = input;
+                setTimeout(() => input.focus(), 10);
             }
             if (error) error.style.display = "block";
         }
 
         function validateForm() {
-            // Hide all errors initially
-            const errorMsgs = document.querySelectorAll('.field-msg');
-            const inputs = document.querySelectorAll('.form-input, .form-select');
-            errorMsgs.forEach(msg => msg.style.display = 'none');
-            inputs.forEach(input => input.classList.remove('input-error'));
+            // Clear prior states
+            lockedInput = null;
 
             const locationInput = document.getElementById("buyerLocation");
             const propTypeSelect = document.getElementById("buyerPropType");
@@ -532,38 +560,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            // 1. Check Neighborhood
+            // Validate fields sequentially; lock on the first invalid field
             if (locationInput.value.trim() === "" || /\d/.test(locationInput.value)) {
                 showError("buyerLocation", "locationError");
                 return false;
             }
 
-            // 2. Check Property Type
             if (!propTypeSelect.value) {
                 showError("buyerPropType", "propTypeError");
                 return false;
             }
 
-            // 3. Check Budget
             if (!budgetSelect.value) {
                 showError("buyerBudget", "budgetError");
                 return false;
             }
 
-            // 4. Check Name
             if (nameInput.value.trim() === "" || /\d/.test(nameInput.value) || nameInput.value.trim().length < 2) {
                 showError("buyerName", "nameError");
                 return false;
             }
 
-            // 5. Check Phone (Must be exactly 10 digits)
             const cleanPhone = phoneInput.value.replace(/\D/g, '');
             if (cleanPhone.length !== 10) {
                 showError("buyerPhone", "phoneError");
                 return false;
             }
 
-            // 6. Check Email
             if (emailInput.value.trim() === "" || !emailInput.value.includes('@') || !emailInput.value.includes('.')) {
                 showError("buyerEmail", "emailError");
                 return false;
