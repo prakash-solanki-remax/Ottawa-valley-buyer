@@ -408,7 +408,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
                 <div class="faq-item">
                     <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 12px;">
-                        <span style="width: 26px; height: 26px; background-color: #dc2626; color: #ffffff; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: 800;">Q3</span>
+                        <span style="width: 26px; height: 26px; background-color: #dc2626; color: #ffffff; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: 800;">Q2</span>
                         <span>Can you assist with military postings to CFB Petawawa?</span>
                     </h3>
                     <p style="color: #475569; margin-top: 8px; padding-left: 38px; font-size: 14px; line-height: 1.55; font-weight: 500;">
@@ -466,7 +466,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
-    <!-- Mobile-Friendly Validation Script -->
+    <!-- Mobile Touch Trap Engine -->
     <script>
         let isSubmitted = false;
 
@@ -478,7 +478,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            // Live Input Stripping & Auto Error Clearing
+            // Hard intercept touch/clicks on other fields if Phone has under 10 digits
+            const preventTapIfPhoneInvalid = function(e) {
+                const cleanDigits = phoneInput.value.replace(/\D/g, '');
+                // If phone is partially entered (1 to 9 digits), lock touch on phone
+                if (cleanDigits.length > 0 && cleanDigits.length < 10) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    showError("buyerPhone", "phoneError");
+                    phoneInput.focus();
+                    return false;
+                }
+            };
+
+            // Attach touch interceptors to Email and form controls below Phone
+            ['touchstart', 'mousedown'].forEach(evt => {
+                emailInput.addEventListener(evt, preventTapIfPhoneInvalid, { passive: false });
+                document.querySelector('.submit-btn').addEventListener(evt, function(e) {
+                    const cleanDigits = phoneInput.value.replace(/\D/g, '');
+                    if (cleanDigits.length > 0 && cleanDigits.length < 10) {
+                        preventTapIfPhoneInvalid(e);
+                    }
+                }, { passive: false });
+            });
+
+            // Strip numbers live from Location & Name
             locationInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
                 if (this.value.trim() !== "") clearError("buyerLocation", "locationError");
@@ -489,7 +513,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 if (this.value.trim().length >= 2) clearError("buyerName", "nameError");
             });
 
-            // Enforce digits only live for phone
+            // Formats phone digits live and automatically clears error once 10 digits are reached
             phoneInput.addEventListener("input", function() {
                 this.value = this.value.replace(/\D/g, '').slice(0, 10);
                 if (this.value.length === 10) {
@@ -520,13 +544,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             if (input) {
                 input.classList.add("input-error");
                 input.focus();
-                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
             if (error) error.style.display = "block";
         }
 
         function validateForm() {
-            // Hide all error styling before evaluating sequentially
             const errorMsgs = document.querySelectorAll('.field-msg');
             const inputs = document.querySelectorAll('.form-input, .form-select');
             errorMsgs.forEach(msg => msg.style.display = 'none');
@@ -539,38 +561,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            // 1. Neighborhood Validation
+            // Validate fields in exact order
             if (locationInput.value.trim() === "" || /\d/.test(locationInput.value)) {
                 showError("buyerLocation", "locationError");
                 return false;
             }
 
-            // 2. Property Type Validation
             if (!propTypeSelect.value) {
                 showError("buyerPropType", "propTypeError");
                 return false;
             }
 
-            // 3. Budget Validation
             if (!budgetSelect.value) {
                 showError("buyerBudget", "budgetError");
                 return false;
             }
 
-            // 4. Name Validation
             if (nameInput.value.trim() === "" || /\d/.test(nameInput.value) || nameInput.value.trim().length < 2) {
                 showError("buyerName", "nameError");
                 return false;
             }
 
-            // 5. Phone Validation (Strict 10 digits check)
             const cleanPhone = phoneInput.value.replace(/\D/g, '');
             if (cleanPhone.length !== 10) {
                 showError("buyerPhone", "phoneError");
                 return false;
             }
 
-            // 6. Email Validation
             if (emailInput.value.trim() === "" || !emailInput.value.includes('@') || !emailInput.value.includes('.')) {
                 showError("buyerEmail", "emailError");
                 return false;
