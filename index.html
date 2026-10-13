@@ -307,7 +307,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="buyerPhone" name="entry.1490479457" autocomplete="tel" placeholder="(613) 203-3313" class="form-input" maxlength="14">
+                                <input type="tel" id="buyerPhone" name="entry.1490479457" autocomplete="tel" placeholder="(613) 203-3313" class="form-input" maxlength="14" inputmode="numeric">
                             </div>
                             <div id="phoneError" class="field-msg">Please enter a valid 10-digit phone number (cannot be blank).</div>
                         </div>
@@ -408,7 +408,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
                 <div class="faq-item">
                     <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 12px;">
-                        <span style="width: 26px; height: 26px; background-color: #dc2626; color: #ffffff; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: 800;">Q2</span>
+                        <span style="width: 26px; height: 26px; background-color: #dc2626; color: #ffffff; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: 800;">Q3</span>
                         <span>Can you assist with military postings to CFB Petawawa?</span>
                     </h3>
                     <p style="color: #475569; margin-top: 8px; padding-left: 38px; font-size: 14px; line-height: 1.55; font-weight: 500;">
@@ -466,10 +466,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
-    <!-- Strict Focus Trap Validation Engine -->
+    <!-- Mobile-Friendly Validation Script -->
     <script>
         let isSubmitted = false;
-        let lockedInput = null;
 
         document.addEventListener("DOMContentLoaded", function() {
             const locationInput = document.getElementById("buyerLocation");
@@ -479,19 +478,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            const allInputs = [locationInput, propTypeSelect, budgetSelect, nameInput, phoneInput, emailInput];
-
-            // Focus trap: Intercept any focus event if a field is currently locked
-            allInputs.forEach(input => {
-                input.addEventListener("focus", function(e) {
-                    if (lockedInput && lockedInput !== this) {
-                        e.preventDefault();
-                        lockedInput.focus();
-                    }
-                });
-            });
-
-            // Strip numbers live from Location & Name
+            // Live Input Stripping & Auto Error Clearing
             locationInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
                 if (this.value.trim() !== "") clearError("buyerLocation", "locationError");
@@ -502,7 +489,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 if (this.value.trim().length >= 2) clearError("buyerName", "nameError");
             });
 
-            // Live Phone Validation (Unlocks as soon as 10 digits are entered)
+            // Enforce digits only live for phone
             phoneInput.addEventListener("input", function() {
                 this.value = this.value.replace(/\D/g, '').slice(0, 10);
                 if (this.value.length === 10) {
@@ -510,24 +497,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 }
             });
 
-            phoneInput.addEventListener("blur", function() {
-                if (this.value.length !== 10) {
-                    showError("buyerPhone", "phoneError");
-                }
-            });
-
-            // Live Email Validation
             emailInput.addEventListener("input", function() {
                 if (this.value.trim() !== "" && this.value.includes('@') && this.value.includes('.')) {
                     clearError("buyerEmail", "emailError");
                 }
             });
 
-            emailInput.addEventListener("blur", function() {
-                if (this.value.trim() === "" || !this.value.includes('@') || !this.value.includes('.')) {
-                    showError("buyerEmail", "emailError");
-                }
-            });
+            propTypeSelect.addEventListener("change", function() { clearError("buyerPropType", "propTypeError"); });
+            budgetSelect.addEventListener("change", function() { clearError("buyerBudget", "budgetError"); });
         });
 
         function clearError(inputId, errorId) {
@@ -535,7 +512,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const error = document.getElementById(errorId);
             if (input) input.classList.remove("input-error");
             if (error) error.style.display = "none";
-            if (lockedInput === input) lockedInput = null;
         }
 
         function showError(inputId, errorId) {
@@ -543,15 +519,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const error = document.getElementById(errorId);
             if (input) {
                 input.classList.add("input-error");
-                lockedInput = input;
-                setTimeout(() => input.focus(), 10);
+                input.focus();
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
             if (error) error.style.display = "block";
         }
 
         function validateForm() {
-            // Clear prior states
-            lockedInput = null;
+            // Hide all error styling before evaluating sequentially
+            const errorMsgs = document.querySelectorAll('.field-msg');
+            const inputs = document.querySelectorAll('.form-input, .form-select');
+            errorMsgs.forEach(msg => msg.style.display = 'none');
+            inputs.forEach(input => input.classList.remove('input-error'));
 
             const locationInput = document.getElementById("buyerLocation");
             const propTypeSelect = document.getElementById("buyerPropType");
@@ -560,33 +539,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            // Validate fields sequentially; lock on the first invalid field
+            // 1. Neighborhood Validation
             if (locationInput.value.trim() === "" || /\d/.test(locationInput.value)) {
                 showError("buyerLocation", "locationError");
                 return false;
             }
 
+            // 2. Property Type Validation
             if (!propTypeSelect.value) {
                 showError("buyerPropType", "propTypeError");
                 return false;
             }
 
+            // 3. Budget Validation
             if (!budgetSelect.value) {
                 showError("buyerBudget", "budgetError");
                 return false;
             }
 
+            // 4. Name Validation
             if (nameInput.value.trim() === "" || /\d/.test(nameInput.value) || nameInput.value.trim().length < 2) {
                 showError("buyerName", "nameError");
                 return false;
             }
 
+            // 5. Phone Validation (Strict 10 digits check)
             const cleanPhone = phoneInput.value.replace(/\D/g, '');
             if (cleanPhone.length !== 10) {
                 showError("buyerPhone", "phoneError");
                 return false;
             }
 
+            // 6. Email Validation
             if (emailInput.value.trim() === "" || !emailInput.value.includes('@') || !emailInput.value.includes('.')) {
                 showError("buyerEmail", "emailError");
                 return false;
