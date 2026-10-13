@@ -229,12 +229,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <h3 style="font-size: 20px; font-weight: 800; color: #0f172a;">Start Your Valley Search</h3>
                         <p style="font-size: 13px; color: #64748b; margin-top: 4px; font-weight: 600;">Tell us what you're looking for below</p>
                     </div>
-                    
-                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-                    <!-- Wired with your exact pre-filled Ottawa Valley Form entry IDs -->
-                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe">
+                    <!-- Configured with FormSubmit to bypass browser CORS blocks and reliably pass data -->
+                    <form id="buyerForm" action="https://formsubmit.co/prak812@gmail.com" method="POST">
                         
+                        <!-- Optional FormSubmit settings -->
+                        <input type="hidden" name="_subject" value="New Ottawa Valley Buyer Lead!">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_captcha" value="false">
+
                         <div class="form-group">
                             <label class="form-label">Preferred Neighborhood / Town / Area</label>
                             <div class="form-input-wrap">
@@ -316,12 +319,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         </button>
                         <p style="font-size: 11px; text-align: center; color: #64748b; margin-top: 10px; font-weight: 600;">🔒 Your privacy is strictly protected.</p>
                     </form>
-
-                    <div id="formSuccess" style="display: none; text-align: center; padding: 28px 0;">
-                        <div style="width: 60px; height: 60px; background-color: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px; font-weight: bold;">✓</div>
-                        <h4 style="font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">Request Received!</h4>
-                        <p style="font-size: 15px; color: #475569; line-height: 1.6; font-weight: 500;">Thank you! Prakash Solanki reviews your search parameters and reaches out promptly with curated MLS® properties matching your needs.</p>
-                    </div>
                 </div>
             </div>
 
@@ -435,24 +432,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="footer-contact-details">
                 <div style="font-size: 12px; font-weight: 800; color: #dc2626; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;">Direct Contact</div>
                 <a href="tel:6132033313" class="footer-contact-item"><i class="fa-solid fa-phone"></i><span>(613) 203-3313</span></a>
-                <a href="mailto:prakash.solanki@remax.net" class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>prakash.solanki@remax.net</span></a>
+                <a href="mailto:prakash.solanki@remax.net" class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>prak812@gmail.com</span></a>
                 <div class="footer-contact-item" style="cursor: default;"><i class="fa-solid fa-location-dot"></i><span>Pembroke & Petawawa, ON</span></div>
             </div>
         </div>
 
         <div class="footer-bottom-bar">Proudly serving buyers across the Ottawa Valley region.</div>
     </footer>
-
-    <script>
-        document.getElementById('buyerForm').addEventListener('submit', function() {
-            setTimeout(function() {
-                const formCard = document.getElementById('buyerFormCard');
-                document.getElementById('buyerForm').style.display = 'none';
-                document.getElementById('formSuccess').style.display = 'block';
-                formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 600);
-        });
-    </script>
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V284XS7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
