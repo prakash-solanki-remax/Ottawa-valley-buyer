@@ -232,7 +232,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(isSubmitted) { showSuccessMessage(); }"></iframe>
 
-                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted();">
+                    <!-- Form with autofill and strict input validations enabled -->
+                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted();" autocomplete="on">
+                        <input type="hidden" name="form-name" value="ottawaValleyBuyerLead" />
 
                         <div class="form-group">
                             <label class="form-label">Preferred Neighborhood / Town / Area</label>
@@ -242,7 +244,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
-                        <!-- Matches Ottawa Valley Google Form choices strictly -->
                         <div class="form-group">
                             <label class="form-label">Property Type Needed</label>
                             <div class="form-input-wrap">
@@ -259,7 +260,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
-                        <!-- Matches Ottawa Valley Google Form Budget choices strictly -->
                         <div class="form-group">
                             <label class="form-label">Target Budget Range</label>
                             <div class="form-input-wrap">
@@ -275,12 +275,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
-                        <!-- Radio values matched to Capitalized Yes / No -->
                         <div class="form-group" style="background-color: #f1f5f9; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; margin-bottom: 14px;">
                             <label class="form-label" style="margin-bottom: 6px;">Are you currently working with a REALTOR®?</label>
                             <div style="display: flex; gap: 24px; align-items: center;">
                                 <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #0f172a; cursor: pointer;">
-                                    <input type="radio" name="entry.16671913" value="yes" style="accent-color: #dc2626; width: 16px; height: 16px;"> Yes
+                                    <input type="radio" name="entry.16671913" value="Yes" style="accent-color: #dc2626; width: 16px; height: 16px;"> Yes
                                 </label>
                                 <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #0f172a; cursor: pointer;">
                                     <input type="radio" name="entry.16671913" value="No" checked style="accent-color: #dc2626; width: 16px; height: 16px;"> No
@@ -288,27 +287,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
+                        <!-- Name field with strict character check and autocomplete -->
                         <div class="form-group">
                             <label class="form-label">Your Name</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" id="buyerName" name="entry.1924118657" required placeholder="e.g., Jane Doe" class="form-input">
+                                <input type="text" id="buyerName" name="entry.1924118657" required autocomplete="name" pattern="^[a-zA-Z\s'-]{2,50}$" title="Please enter a valid name using letters only (no numbers or special characters)." placeholder="e.g., Jane Doe" class="form-input">
                             </div>
                         </div>
 
+                        <!-- Phone field with strict 10-digit check and autocomplete -->
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="buyerPhone" name="entry.1490479457" required placeholder="(613) 203-3313" class="form-input">
+                                <input type="tel" id="buyerPhone" name="entry.1490479457" required autocomplete="tel" pattern="^(\+?1[\s-]?)?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}$" title="Please enter a valid 10-digit phone number (e.g., 6132033313)." placeholder="(613) 203-3313" class="form-input">
                             </div>
                         </div>
 
+                        <!-- Email field with strict @ check and autocomplete -->
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-envelope"></i></span>
-                                <input type="email" id="buyerEmail" name="entry.1908849394" required placeholder="yourname@example.com" class="form-input">
+                                <input type="email" id="buyerEmail" name="entry.1908849394" required autocomplete="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address containing an @ sign." placeholder="yourname@example.com" class="form-input">
                             </div>
                         </div>
 
