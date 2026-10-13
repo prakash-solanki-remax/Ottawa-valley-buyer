@@ -234,7 +234,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(isSubmitted) { showSuccessMessage(); }"></iframe>
 
-                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="return validateForm();" autocomplete="on">
+                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="return validateForm();" autocomplete="on" novalidate>
                         <input type="hidden" name="form-name" value="ottawaValleyBuyerLead" />
 
                         <!-- Neighborhood Field -->
@@ -261,6 +261,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                     <option value="Multi-Family / Investment">Multi-Family / Investment</option>
                                 </select>
                             </div>
+                            <div id="propTypeError" class="field-msg">Please select a property type.</div>
                         </div>
 
                         <div class="form-group">
@@ -276,6 +277,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                     <option value="$900,000+">$900,000+</option>
                                 </select>
                             </div>
+                            <div id="budgetError" class="field-msg">Please select a budget range.</div>
                         </div>
 
                         <div class="form-group" style="background-color: #f1f5f9; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; margin-bottom: 14px;">
@@ -297,7 +299,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <span class="form-icon"><i class="fa-solid fa-user"></i></span>
                                 <input type="text" id="buyerName" name="entry.1924118657" autocomplete="name" placeholder="e.g., Jane Doe" class="form-input">
                             </div>
-                            <div id="nameError" class="field-msg">Please enter a valid name (cannot be blank).</div>
+                            <div id="nameError" class="field-msg">Please enter a valid name using letters only (cannot be blank).</div>
                         </div>
 
                         <!-- Phone Field -->
@@ -464,143 +466,106 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
-    <!-- Strict Single-Field Lock Validation Engine -->
     <script>
         let isSubmitted = false;
-        let activeLockField = null;
 
         document.addEventListener("DOMContentLoaded", function() {
             const locationInput = document.getElementById("buyerLocation");
+            const propTypeSelect = document.getElementById("buyerPropType");
+            const budgetSelect = document.getElementById("buyerBudget");
             const nameInput = document.getElementById("buyerName");
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            const locationError = document.getElementById("locationError");
-            const nameError = document.getElementById("nameError");
-            const phoneError = document.getElementById("phoneError");
-            const emailError = document.getElementById("emailError");
-
-            const allInputs = [locationInput, nameInput, phoneInput, emailInput];
-
-            // Prevents focusing on any other field if one field is locked
-            allInputs.forEach(input => {
-                input.addEventListener("focus", function() {
-                    if (activeLockField && activeLockField !== this) {
-                        activeLockField.focus();
-                    }
-                });
-            });
-
-            // 1. NEIGHBORHOOD VALIDATION
+            // Strip numbers live from Location
             locationInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
-                if (this.value.trim() !== "") {
-                    locationError.style.display = "none";
-                    this.classList.remove("input-error");
-                    if (activeLockField === this) activeLockField = null;
-                }
-            });
-            locationInput.addEventListener("blur", function() {
-                if (this.value.trim() === "" || /\d/.test(this.value)) {
-                    locationError.style.display = "block";
-                    this.classList.add("input-error");
-                    activeLockField = this;
-                    setTimeout(() => this.focus(), 10);
-                }
+                clearError("buyerLocation", "locationError");
             });
 
-            // 2. NAME VALIDATION
+            // Strip numbers live from Name
             nameInput.addEventListener("input", function() {
                 this.value = this.value.replace(/[0-9]/g, '');
-                if (this.value.trim().length >= 2 && !/\d/.test(this.value)) {
-                    nameError.style.display = "none";
-                    this.classList.remove("input-error");
-                    if (activeLockField === this) activeLockField = null;
-                }
-            });
-            nameInput.addEventListener("blur", function() {
-                if (this.value.trim() === "" || /\d/.test(this.value) || this.value.trim().length < 2) {
-                    nameError.style.display = "block";
-                    this.classList.add("input-error");
-                    activeLockField = this;
-                    setTimeout(() => this.focus(), 10);
-                }
+                clearError("buyerName", "nameError");
             });
 
-            // 3. PHONE VALIDATION (Enforces exact 10 digits)
+            // Format phone digits live
             phoneInput.addEventListener("input", function() {
                 this.value = this.value.replace(/\D/g, '').slice(0, 10);
-                const digits = this.value.replace(/\D/g, '');
-                if (digits.length === 10) {
-                    phoneError.style.display = "none";
-                    this.classList.remove("input-error");
-                    if (activeLockField === this) activeLockField = null;
-                }
-            });
-            phoneInput.addEventListener("blur", function() {
-                const digits = this.value.replace(/\D/g, '');
-                if (digits.length !== 10) {
-                    phoneError.style.display = "block";
-                    this.classList.add("input-error");
-                    activeLockField = this;
-                    setTimeout(() => this.focus(), 10);
-                }
+                clearError("buyerPhone", "phoneError");
             });
 
-            // 4. EMAIL VALIDATION
-            emailInput.addEventListener("input", function() {
-                if (this.value.trim() !== "" && this.value.includes('@') && this.value.includes('.')) {
-                    emailError.style.display = "none";
-                    this.classList.remove("input-error");
-                    if (activeLockField === this) activeLockField = null;
-                }
-            });
-            emailInput.addEventListener("blur", function() {
-                if (this.value.trim() === "" || !this.value.includes('@') || !this.value.includes('.')) {
-                    emailError.style.display = "block";
-                    this.classList.add("input-error");
-                    activeLockField = this;
-                    setTimeout(() => this.focus(), 10);
-                }
-            });
+            // Clear errors on change
+            propTypeSelect.addEventListener("change", function() { clearError("buyerPropType", "propTypeError"); });
+            budgetSelect.addEventListener("change", function() { clearError("buyerBudget", "budgetError"); });
+            emailInput.addEventListener("input", function() { clearError("buyerEmail", "emailError"); });
         });
 
+        function clearError(inputId, errorId) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(errorId);
+            if (input) input.classList.remove("input-error");
+            if (error) error.style.display = "none";
+        }
+
+        function showError(inputId, errorId) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(errorId);
+            if (input) {
+                input.classList.add("input-error");
+                input.focus();
+            }
+            if (error) error.style.display = "block";
+        }
+
         function validateForm() {
+            // Hide all errors initially
+            const errorMsgs = document.querySelectorAll('.field-msg');
+            const inputs = document.querySelectorAll('.form-input, .form-select');
+            errorMsgs.forEach(msg => msg.style.display = 'none');
+            inputs.forEach(input => input.classList.remove('input-error'));
+
             const locationInput = document.getElementById("buyerLocation");
+            const propTypeSelect = document.getElementById("buyerPropType");
+            const budgetSelect = document.getElementById("buyerBudget");
             const nameInput = document.getElementById("buyerName");
             const phoneInput = document.getElementById("buyerPhone");
             const emailInput = document.getElementById("buyerEmail");
 
-            if (/\d/.test(locationInput.value) || locationInput.value.trim() === "") {
-                document.getElementById("locationError").style.display = "block";
-                locationInput.classList.add("input-error");
-                activeLockField = locationInput;
-                locationInput.focus();
+            // 1. Check Neighborhood
+            if (locationInput.value.trim() === "" || /\d/.test(locationInput.value)) {
+                showError("buyerLocation", "locationError");
                 return false;
             }
 
-            if (/\d/.test(nameInput.value) || nameInput.value.trim().length < 2) {
-                document.getElementById("nameError").style.display = "block";
-                nameInput.classList.add("input-error");
-                activeLockField = nameInput;
-                nameInput.focus();
+            // 2. Check Property Type
+            if (!propTypeSelect.value) {
+                showError("buyerPropType", "propTypeError");
                 return false;
             }
 
+            // 3. Check Budget
+            if (!budgetSelect.value) {
+                showError("buyerBudget", "budgetError");
+                return false;
+            }
+
+            // 4. Check Name
+            if (nameInput.value.trim() === "" || /\d/.test(nameInput.value) || nameInput.value.trim().length < 2) {
+                showError("buyerName", "nameError");
+                return false;
+            }
+
+            // 5. Check Phone (Must be exactly 10 digits)
             const cleanPhone = phoneInput.value.replace(/\D/g, '');
             if (cleanPhone.length !== 10) {
-                document.getElementById("phoneError").style.display = "block";
-                phoneInput.classList.add("input-error");
-                activeLockField = phoneInput;
-                phoneInput.focus();
+                showError("buyerPhone", "phoneError");
                 return false;
             }
 
+            // 6. Check Email
             if (emailInput.value.trim() === "" || !emailInput.value.includes('@') || !emailInput.value.includes('.')) {
-                document.getElementById("emailError").style.display = "block";
-                emailInput.classList.add("input-error");
-                activeLockField = emailInput;
-                emailInput.focus();
+                showError("buyerEmail", "emailError");
                 return false;
             }
 
