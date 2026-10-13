@@ -112,6 +112,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .form-input, .form-select { width: 100%; padding: 13px 14px 13px 42px; background-color: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 16px; color: #0f172a; outline: none; transition: all 0.2s ease; }
         .form-select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23003399' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; }
         .form-input:focus, .form-select:focus { border-color: #dc2626; background-color: #fff; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15); }
+        .input-error { border-color: #dc2626 !important; background-color: #fef2f2 !important; }
         
         .submit-btn { width: 100%; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: #ffffff; font-weight: 800; padding: 16px 20px; border-radius: 10px; border: none; cursor: pointer; transition: all 0.25s ease; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4); text-transform: uppercase; letter-spacing: 0.03em; }
         .submit-btn:hover, .submit-btn:active { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); transform: translateY(-1px); box-shadow: 0 8px 25px rgba(220, 38, 38, 0.5); }
@@ -232,16 +233,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     
                     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(isSubmitted) { showSuccessMessage(); }"></iframe>
 
-                    <!-- Form with Native HTML5 Input Patterns -->
-                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted();" autocomplete="on">
+                    <form id="buyerForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfdIv5zxw7HZ65eXAC4ZEAbCYPsrgdHE4GCR1lB9IU-bt4LjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="return validateForm();" autocomplete="on">
                         <input type="hidden" name="form-name" value="ottawaValleyBuyerLead" />
 
-                        <!-- Neighborhood: Blocks numbers -->
+                        <!-- Neighborhood: Locks if numbers exist -->
                         <div class="form-group">
                             <label class="form-label">Preferred Neighborhood / Town / Area</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-location-dot"></i></span>
-                                <input type="text" id="buyerLocation" name="entry.1138556351" required pattern="^[^0-9]+$" title="Neighborhood cannot contain numbers." placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
+                                <input type="text" id="buyerLocation" name="entry.1138556351" required placeholder="e.g., Pembroke, Petawawa, Deep River" class="form-input">
                             </div>
                         </div>
 
@@ -288,25 +288,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             </div>
                         </div>
 
-                        <!-- Name: Blocks numbers/special chars (Allows letters, spaces, hyphens) -->
+                        <!-- Name: Locks focus if numbers exist -->
                         <div class="form-group">
                             <label class="form-label">Your Name</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" id="buyerName" name="entry.1924118657" required autocomplete="name" pattern="^[a-zA-Z\s'-]{2,50}$" title="Your name must contain letters only (no numbers)." placeholder="e.g., Jane Doe" class="form-input">
+                                <input type="text" id="buyerName" name="entry.1924118657" required autocomplete="name" placeholder="e.g., Jane Doe" class="form-input">
                             </div>
                         </div>
 
-                        <!-- Phone: Requires exactly 10 digits (e.g. 6132033313 or 613-203-3313) -->
+                        <!-- Phone: Strictly 10 digits -->
                         <div class="form-group">
                             <label class="form-label">Phone Number</label>
                             <div class="form-input-wrap">
                                 <span class="form-icon"><i class="fa-solid fa-phone"></i></span>
-                                <input type="tel" id="buyerPhone" name="entry.1490479457" required autocomplete="tel" pattern="^(\+?1[\s-]?)?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}$" title="Phone number must be a valid 10-digit number." placeholder="(613) 203-3313" class="form-input">
+                                <input type="tel" id="buyerPhone" name="entry.1490479457" required autocomplete="tel" placeholder="(613) 203-3313" class="form-input" maxlength="14">
                             </div>
                         </div>
 
-                        <!-- Email: Standard Email Format -->
+                        <!-- Email Address -->
                         <div class="form-group">
                             <label class="form-label">Email Address</label>
                             <div class="form-input-wrap">
@@ -459,11 +459,101 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
+    <!-- Strict Field Focus-Locking Scripts -->
     <script>
         let isSubmitted = false;
 
-        function submitted() {
+        document.addEventListener("DOMContentLoaded", function() {
+            const locationInput = document.getElementById("buyerLocation");
+            const nameInput = document.getElementById("buyerName");
+            const phoneInput = document.getElementById("buyerPhone");
+            const emailInput = document.getElementById("buyerEmail");
+
+            // 1. NEIGHBORHOOD FIELD: Strip numbers as typed, lock cursor if invalid on blur
+            locationInput.addEventListener("input", function() {
+                this.value = this.value.replace(/[0-9]/g, '');
+            });
+            locationInput.addEventListener("blur", function() {
+                if (this.value.trim() !== "" && /\d/.test(this.value)) {
+                    alert("Neighborhood cannot contain numbers. Please enter text only.");
+                    this.classList.add("input-error");
+                    setTimeout(() => this.focus(), 10);
+                } else {
+                    this.classList.remove("input-error");
+                }
+            });
+
+            // 2. NAME FIELD: Strip numbers as typed, lock cursor if invalid on blur
+            nameInput.addEventListener("input", function() {
+                this.value = this.value.replace(/[0-9]/g, '');
+            });
+            nameInput.addEventListener("blur", function() {
+                if (this.value.trim() !== "" && (/\d/.test(this.value) || this.value.trim().length < 2)) {
+                    alert("Your name must contain letters only (no numbers).");
+                    this.classList.add("input-error");
+                    setTimeout(() => this.focus(), 10);
+                } else {
+                    this.classList.remove("input-error");
+                }
+            });
+
+            // 3. PHONE FIELD: Strip non-digits as typed, enforce exact 10 digits on blur
+            phoneInput.addEventListener("input", function() {
+                this.value = this.value.replace(/\D/g, '').slice(0, 10);
+            });
+            phoneInput.addEventListener("blur", function() {
+                const digits = this.value.replace(/\D/g, '');
+                if (digits.length > 0 && digits.length !== 10) {
+                    alert("Phone number must be a valid 10-digit number.");
+                    this.classList.add("input-error");
+                    setTimeout(() => this.focus(), 10);
+                } else {
+                    this.classList.remove("input-error");
+                }
+            });
+
+            // 4. EMAIL FIELD: Verify @ symbol on blur
+            emailInput.addEventListener("blur", function() {
+                if (this.value.trim() !== "" && (!this.value.includes('@') || !this.value.includes('.'))) {
+                    alert("Please enter a valid email address containing an '@' sign.");
+                    this.classList.add("input-error");
+                    setTimeout(() => this.focus(), 10);
+                } else {
+                    this.classList.remove("input-error");
+                }
+            });
+        });
+
+        function validateForm() {
+            const locationInput = document.getElementById("buyerLocation");
+            const nameInput = document.getElementById("buyerName");
+            const phoneInput = document.getElementById("buyerPhone");
+            const emailInput = document.getElementById("buyerEmail");
+
+            if (/\d/.test(locationInput.value)) {
+                alert("Preferred Neighborhood cannot contain numbers.");
+                locationInput.focus();
+                return false;
+            }
+            if (/\d/.test(nameInput.value)) {
+                alert("Your name cannot contain numbers.");
+                nameInput.focus();
+                return false;
+            }
+            const cleanPhone = phoneInput.value.replace(/\D/g, '');
+            if (cleanPhone.length !== 10) {
+                alert("Phone number must be exactly 10 digits.");
+                phoneInput.focus();
+                return false;
+            }
+            if (!emailInput.value.includes('@')) {
+                alert("Please enter a valid email address containing an '@' sign.");
+                emailInput.focus();
+                return false;
+            }
+
             isSubmitted = true;
+            return true;
         }
 
         function showSuccessMessage() {
