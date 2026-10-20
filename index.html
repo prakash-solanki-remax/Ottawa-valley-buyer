@@ -31,153 +31,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        remax: {
+                            red: '#DC2626',
+                            blue: '#003399',
+                            darkBlue: '#0F172A',
+                            gold: '#D4AF37',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, ::before, ::after { box-sizing: border-box !important; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #070d1d; color: #f8fafc; antialiased; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #070d1d; color: #f8fafc; antialiased; overflow-x: hidden; -webkit-tap-highlight-color: transparent; padding-top: 70px; }
         
-        .site-header {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            z-index: 999999 !important;
-            background: linear-gradient(135deg, #070d1d 0%, #020617 100%);
-            border-bottom: 3px solid #dc2626;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            padding: 10px 16px;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-        }
-
-        body { padding-top: 90px; }
-        @media(min-width: 768px) {
-            body { padding-top: 102px; }
-            .site-header { padding: 12px 28px; }
-        }
-
-        .header-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .brand-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            justify-content: space-between;
-        }
-        .brand-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .remax-logo-box {
-            background: #ffffff;
-            padding: 4px 6px;
-            border-radius: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 3px solid #003399;
-        }
-        .remax-logo-box img {
-            height: 28px;
-            width: auto;
-            display: block;
-        }
-        .agent-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-            border-left: 2px solid #003399;
-            padding-left: 10px;
-        }
-        .agent-name-title {
-            font-weight: 800;
-            font-size: 12px;
-            color: #ffffff;
-            line-height: 1.2;
-            white-space: nowrap;
-        }
-        .agent-brokerage {
-            font-size: 10px;
-            color: #94a3b8;
-            font-weight: 700;
-            line-height: 1.2;
-            white-space: nowrap;
-        }
-        .agent-address {
-            font-size: 9px;
-            color: #cbd5e1;
-            font-weight: 600;
-            line-height: 1.2;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .header-call-btn {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            color: #ffffff;
-            padding: 8px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.2s ease;
-        }
-        .header-call-btn:hover {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
-        }
-        .call-btn-label {
-            font-size: 9px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #fee2e2;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .call-btn-number {
-            font-size: 13px;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 0.02em;
-            line-height: 1.3;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 2px;
-        }
-
-        @media(min-width: 768px) {
-            .agent-name-title { font-size: 15px; }
-            .agent-brokerage { font-size: 11px; }
-            .agent-address { font-size: 11px; }
-            .remax-logo-box img { height: 36px; }
-            .brand-left { gap: 18px; }
-            .agent-details { padding-left: 16px; gap: 2px; }
-            .header-call-btn { padding: 10px 18px; border-radius: 10px; }
-            .call-btn-label { font-size: 10px; }
-            .call-btn-number { font-size: 16px; }
-        }
-
         .hero { position: relative; background-color: #070d1d; color: #ffffff; padding: 35px 14px 60px; overflow: hidden; }
         .hero-bg { 
             position: absolute; inset: 0; z-index: 0; opacity: 0.25; 
@@ -188,13 +67,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(2, 6, 23, 0.95), rgba(7, 13, 29, 0.91)); z-index: 1; }
         .hero-content-wrapper { position: relative; z-index: 10; max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
         @media(min-width: 1024px) {
-            .hero-content-wrapper { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 40px; }
+            .hero-content-wrapper { flex-direction: row; align-items: flex-start; justify-between; gap: 40px; }
             .hero { padding: 65px 24px 95px; }
         }
-        
-        .hero-logo-card { background: rgba(15, 23, 42, 0.9); border: 1.5px solid #003399; border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-top: 10px; }
-        .hero-photo-display { width: 75px; height: 75px; border-radius: 12px; overflow: hidden; border: 2px solid #dc2626; box-shadow: 0 4px 12px rgba(0,0,0,0.4); flex-shrink: 0; background: #0f172a; }
-        .hero-photo-display img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .form-card { background: rgba(255, 255, 255, 0.99); color: #0f172a; padding: 24px 20px; border-radius: 18px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 25px rgba(0, 51, 153, 0.3); border: 2px solid #003399; width: 100%; max-width: 440px; margin: 0 auto; }
         @media(min-width: 768px) { .form-card { padding: 32px; } }
@@ -224,126 +99,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         .faq-item { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
         @media(min-width: 768px) { .faq-item { padding: 24px; } }
-        
-        .site-footer {
-            background: linear-gradient(135deg, #020617 0%, #070d1d 100%);
-            color: #94a3b8;
-            padding: 60px 20px 40px;
-            border-top: 3px solid #003399;
-        }
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-        @media(min-width: 768px) {
-            .footer-container {
-                grid-template-columns: 1.2fr 1fr;
-                gap: 60px;
-            }
-        }
-        .footer-brand-box {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .footer-logo-badge {
-            background: #ffffff;
-            padding: 8px 14px;
-            border-radius: 10px;
-            width: fit-content;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-            border-bottom: 4px solid #dc2626;
-        }
-        .footer-logo-badge img {
-            height: 48px;
-            width: auto;
-            display: block;
-        }
-        .footer-agent-signoff {
-            font-size: 18px;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1.3;
-        }
-        .footer-brokerage-info {
-            font-size: 13px;
-            color: #cbd5e1;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-        .footer-contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(0, 51, 153, 0.4);
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-        .footer-contact-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #e2e8f0;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-        .footer-contact-item:hover {
-            color: #60a5fa;
-        }
-        .footer-contact-item i {
-            color: #dc2626;
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-        }
-        .footer-bottom-bar {
-            max-width: 1280px;
-            margin: 40px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid #1e293b;
-            text-align: center;
-            font-size: 12px;
-            color: #64748b;
-            font-weight: 600;
-        }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-remax-red selection:text-white">
 
-    <header class="site-header">
-        <div class="header-container">
-            <div class="brand-box">
-                <div class="brand-left">
-                    <div class="remax-logo-box">
-                        <img src="remax_logo_bann.png" alt="RE/MAX Logo">
-                    </div>
-                    <div class="agent-details">
-                        <span class="agent-name-title">Prakash Solanki, REALTOR®</span>
-                        <span class="agent-brokerage">RE/MAX Pembroke Realty Ltd.</span>
-                        <span class="agent-address">
-                            <i class="fa-solid fa-location-dot" style="color: #ef4444; font-size: 8px;"></i>
-                            <span>Serving Ottawa Valley & Surrounding Area</span>
-                        </span>
-                    </div>
+    <!-- 1. MAIN NAVIGATION HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200 w-full">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5 flex items-center justify-between gap-2 w-full">
+            
+            <!-- Left Side: Agent Branding -->
+            <a href="#" class="flex items-center gap-2 min-w-0 flex-shrink">
+                <div class="min-w-0">
+                    <span class="text-sm sm:text-lg lg:text-xl font-black tracking-tight text-slate-900 block leading-tight truncate">
+                        Prakash Solanki, <span class="text-remax-blue font-bold text-xs sm:text-base">REALTOR®</span>
+                    </span>
+                    <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-600 block leading-tight truncate">RE/MAX Pembroke Realty Ltd.</span>
+                    <span class="text-[9px] sm:text-[10px] font-semibold text-slate-500 block mt-0.5 truncate">10A Canadian Forces Dr., Petawawa, ON</span>
                 </div>
+            </a>
+
+            <!-- Right Side: RE/MAX Logo Top + Phone Number Underneath -->
+            <div class="flex flex-col items-end flex-shrink-0 gap-1">
+                <!-- RE/MAX Logo -->
+                <img src="Remax_with_balloon_2.jpg" alt="RE/MAX Logo" class="h-6 sm:h-8 md:h-9 w-auto object-contain" onerror="this.onerror=null; this.src='Remax_with_balloon.jpg';">
                 
-                <a href="tel:6132033313" class="header-call-btn" title="Call Prakash Solanki">
-                    <span class="call-btn-label">
-                        <i class="fa-solid fa-phone" style="font-size: 9px;"></i> CALL
-                    </span>
-                    <span class="call-btn-number">
-                        <span>613-203-3313</span>
-                    </span>
+                <!-- Phone Button directly under logo -->
+                <a href="tel:16132033313" class="bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300 font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-lg text-[11px] sm:text-xs transition flex items-center gap-1 shadow-sm whitespace-nowrap">
+                    <svg class="w-3 h-3 text-remax-red flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+                    <span>(613) 203-3313</span>
                 </a>
             </div>
+
         </div>
     </header>
 
@@ -383,20 +169,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <p style="font-size: 15px; color: #cbd5e1; line-height: 1.55;">
                     Whether you are looking for a suburban family home, a country property, or a waterfront retreat across the Ottawa Valley, get matched with active listings matching your budget.
                 </p>
-
-                <div class="hero-logo-card">
-                    <div class="hero-photo-display">
-                        <img src="myPICWITHREMAXLOGO.jfif" alt="Prakash Solanki">
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <span style="font-size: 11px; font-weight: 800; color: #dc2626; text-transform: uppercase; letter-spacing: 0.05em;">Trusted Real Estate Professional</span>
-                        <h4 style="font-size: 16px; font-weight: 800; color: #ffffff;">Prakash Solanki, REALTOR®</h4>
-                        <p style="font-size: 12px; color: #94a3b8; font-weight: 600;">RE/MAX Pembroke Realty Ltd.</p>
-                        <a href="tel:6132033313" style="font-size: 13px; color: #60a5fa; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-top: 2px;">
-                            <i class="fa-solid fa-phone"></i> 613-203-3313
-                        </a>
-                    </div>
-                </div>
             </div>
 
             <div style="width: 100%; max-width: 440px; flex-shrink: 0;">
@@ -603,40 +375,64 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </section>
 
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-brand-box">
-                <div class="footer-logo-badge">
-                    <img src="remax_logo_bann.png" alt="RE/MAX Logo">
-                </div>
+    <!-- 5. EXACT IDENTICAL FOOTER FROM WEBSITE_2.TXT -->
+    <footer class="bg-slate-950 text-slate-300 pt-12 pb-28 sm:pb-16 px-4 sm:px-6 lg:px-8 border-t-4 border-remax-red relative overflow-hidden w-full">
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-remax-blue/10 blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-3xl mx-auto flex flex-col items-center text-center relative z-10 w-full space-y-6">
+            
+            <!-- TOP: OFFICIAL BROKERAGE BADGE / LOGO -->
+            <div class="flex flex-col items-center justify-center p-5 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-xl w-full max-w-sm">
+                <img src="Remax_with_balloon_2.jpg" alt="RE/MAX Logo" class="h-11 w-auto object-contain bg-white px-3.5 py-1.5 rounded-xl shadow-md border border-slate-200 mb-2" onerror="this.onerror=null; this.src='Remax_with_balloon.jpg';">
+                
+                <span class="text-xs font-black text-white uppercase tracking-wider block">
+                    RE/MAX Pembroke Realty Ltd.
+                </span>
+                <span class="text-[10px] font-semibold text-slate-400 italic mt-0.5 block">
+                    *Independently owned and operated
+                </span>
+            </div>
+
+            <!-- MIDDLE: AGENT IDENTITY & CONTACT BUTTONS -->
+            <div class="space-y-3 w-full">
                 <div>
-                    <div class="footer-agent-signoff">Prakash Solanki, REALTOR®</div>
-                    <div class="footer-brokerage-info" style="margin-top: 4px;">RE/MAX Pembroke Realty Ltd., Brokerage</div>
+                    <h3 class="text-2xl font-black text-white tracking-tight">
+                        Prakash Solanki, <span class="text-sky-400 font-extrabold text-lg">REALTOR®</span>
+                    </h3>
+                    <p class="text-xs font-extrabold uppercase tracking-widest text-remax-red mt-1">
+                        RE/MAX Pembroke Realty Ltd., Brokerage
+                    </p>
+                    <p class="text-xs text-slate-400 font-medium mt-1 flex items-center justify-center gap-1.5">
+                        <span>📍</span> 10A Canadian Forces Drive, Petawawa, ON K8H 0H4
+                    </p>
                 </div>
-                <p class="footer-brokerage-info">
-                    Serving Pembroke, Petawawa, Deep River, and the Ottawa Valley.
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-1">
+                    <a href="tel:16132033313" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-remax-red text-white border border-slate-800 hover:border-remax-red font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-md group">
+                        <svg class="w-4 h-4 text-remax-red group-hover:text-white transition flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+                        <span>(613) 203-3313</span>
+                    </a>
+                    
+                    <a href="mailto:prakash.solanki@remax.net" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-remax-blue text-white border border-slate-800 hover:border-remax-blue font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-md group">
+                        <svg class="w-4 h-4 text-sky-400 group-hover:text-white transition flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+                        <span>prakash.solanki@remax.net</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- BOTTOM: LEGAL DISCLOSURES & COPYRIGHT -->
+            <div class="space-y-2 text-xs text-slate-400 leading-relaxed bg-slate-900/40 p-4 rounded-2xl border border-slate-800/60 w-full">
+                <p>
+                    Listing data provided herein is sourced through PropTX and deemed reliable but is not guaranteed accurate. Listing data updated daily.
+                </p>
+                <p>
+                    REALTOR®, MLS®, and associated logos are registered trademarks of CREA.
+                </p>
+                <p class="text-slate-300 font-semibold pt-1">
+                    © 2026 Prakash Solanki, REALTOR®. All rights reserved.
                 </p>
             </div>
 
-            <div class="footer-contact-details">
-                <div style="font-size: 12px; font-weight: 800; color: #dc2626; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;">Direct Contact</div>
-                <a href="tel:6132033313" class="footer-contact-item">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>(613) 203-3313</span>
-                </a>
-                <a href="mailto:prakash.solanki@remax.net" class="footer-contact-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>prakash.solanki@remax.net</span>
-                </a>
-                <div class="footer-contact-item" style="cursor: default;">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <span>Pembroke & Petawawa, ON</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom-bar">
-            Proudly serving homeowners across the Ottawa Valley region.
         </div>
     </footer>
 
