@@ -67,8 +67,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(2, 6, 23, 0.95), rgba(7, 13, 29, 0.91)); z-index: 1; }
         .hero-content-wrapper { position: relative; z-index: 10; max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
         @media(min-width: 1024px) {
-            .hero-content-wrapper { flex-direction: row; align-items: flex-start; justify-between; gap: 40px; }
+            .hero-content-wrapper { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 40px; }
             .hero { padding: 65px 24px 95px; }
+        }
+
+        /* Feature Card Box Style */
+        .feature-box {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1.5px solid rgba(239, 68, 68, 0.6);
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 8px;
         }
 
         .form-card { background: rgba(255, 255, 255, 0.99); color: #0f172a; padding: 24px 20px; border-radius: 18px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 25px rgba(0, 51, 153, 0.3); border: 2px solid #003399; width: 100%; max-width: 440px; margin: 0 auto; }
@@ -97,8 +110,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-top: 5px solid #003399; padding: 26px 20px; border-radius: 14px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06); transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.1); }
 
-        .faq-item { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        @media(min-width: 768px) { .faq-item { padding: 24px; } }
+        /* COLLAPSIBLE ACCORDION FAQ STYLING */
+        .faq-accordion-item {
+            background-color: #e2e8f0;
+            border-radius: 14px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            transition: background-color 0.2s ease;
+        }
+        .faq-accordion-btn {
+            width: 100%;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            gap: 16px;
+        }
+        .faq-accordion-btn:hover {
+            background-color: #cbd5e1;
+        }
+        .faq-accordion-arrow {
+            color: #dc2626;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .faq-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-in-out, padding 0.3s ease;
+            background-color: #f8fafc;
+            padding: 0 22px;
+            border-top: 1px solid transparent;
+        }
+        .faq-accordion-item.active .faq-accordion-arrow {
+            transform: rotate(180deg);
+        }
+        .faq-accordion-item.active .faq-accordion-content {
+            padding: 16px 22px 20px 22px;
+            border-top-color: #cbd5e1;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-remax-red selection:text-white">
@@ -149,26 +207,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     Find Your Next Home in Ottawa Valley & Surrounding Area
                 </h1>
 
-                <div style="display: flex; flex-direction: column; gap: 14px; font-weight: 700; padding-top: 2px;">
-                    <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #e2e8f0; line-height: 1.5;">
-                        <i class="fa-solid fa-circle-check" style="color: #ef4444; font-size: 17px; flex-shrink: 0; margin-top: 3px;"></i>
-                        <span style="flex: 1;"><strong style="color: #ffffff; background-color: #003399; padding: 3px 10px; border-radius: 6px; font-weight: 900; display: inline-block; margin-bottom: 3px; letter-spacing: 0.01em;">Early MLS® Access:</strong> Get new residential listings across Pembroke, Petawawa, Deep River, Westmeath & surrounding areas instantly</span>
+                <p style="font-size: 15px; color: #cbd5e1; line-height: 1.55;">
+                    Get customized home searches curated around your preferred schools, commutes, and lifestyle across Pembroke, Petawawa, Deep River & the Ottawa Valley.
+                </p>
+
+                <!-- FEATURE CARD BOX -->
+                <div class="feature-box">
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">🧡</span>
+                        <span><strong style="color: #ffffff;">Buyers: Free, no-obligation service</strong></span>
                     </div>
 
-                    <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #e2e8f0; line-height: 1.5;">
-                        <i class="fa-solid fa-circle-check" style="color: #ef4444; font-size: 17px; flex-shrink: 0; margin-top: 3px;"></i>
-                        <span style="flex: 1;"><strong style="color: #ffffff; background-color: #003399; padding: 3px 10px; border-radius: 6px; font-weight: 900; display: inline-block; margin-bottom: 3px; letter-spacing: 0.01em;">Targeted Property Matching:</strong> Customized home searches curated specifically around your preferred lifestyle and commute</span>
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">🏠</span>
+                        <span><strong style="color: #ffffff;">Secure Your Dream Home:</strong> Full-service guidance from initial search to closing day.</span>
                     </div>
-                    
-                    <div style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #e2e8f0; line-height: 1.5;">
-                        <i class="fa-solid fa-circle-check" style="color: #ef4444; font-size: 17px; flex-shrink: 0; margin-top: 3px;"></i>
-                        <span style="flex: 1;"><strong style="color: #ffffff; background-color: #003399; padding: 3px 10px; border-radius: 6px; font-weight: 900; display: inline-block; margin-bottom: 3px; letter-spacing: 0.01em;">Strategic Negotiation:</strong> Expert market guidance and offer strategies to help you secure the right property under optimal terms</span>
+
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">☕</span>
+                        <span><strong style="color: #ffffff;">Free Consultation:</strong> Get a competitive edge in today's local market with zero obligation.</span>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">⚡</span>
+                        <span><strong style="color: #ffffff;">Live MLS® Alerts:</strong> Custom property updates tailored to your budget.</span>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">🎯</span>
+                        <span><strong style="color: #ffffff;">Deep Insights:</strong> Expert guidance across Pembroke, Petawawa, Deep River & surrounding areas for a seamless move.</span>
                     </div>
                 </div>
 
-                <p style="font-size: 15px; color: #cbd5e1; line-height: 1.55;">
-                    Whether you are looking for a suburban family home, a country property, or a waterfront retreat across the Ottawa Valley, get matched with active listings matching your budget.
-                </p>
             </div>
 
             <div style="width: 100%; max-width: 440px; flex-shrink: 0;">
@@ -307,8 +377,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <div style="width: 42px; height: 42px; background: #fee2e2; color: #dc2626; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 14px;">
                         <i class="fa-solid fa-medal"></i>
                     </div>
-                    <h3 style="font-size: 17px; font-weight: 800; color: #0f172a; margin-bottom: 6px;">Military & Relocation Support</h3>
-                    <p style="font-size: 14px; color: #475569; line-height: 1.55; font-weight: 500;">Specialized military relocation assistance and structured house-hunting itineraries designed to make your transition into Petawawa and the Valley seamless.</p>
+                    <h3 style="font-size: 17px; font-weight: 800; color: #0f172a; margin-bottom: 6px;">Relocation & Transition Support</h3>
+                    <p style="font-size: 14px; color: #475569; line-height: 1.55; font-weight: 500;">Specialized out-of-town relocation assistance and structured house-hunting itineraries designed to make your transition into Petawawa and the Valley seamless.</p>
                 </div>
 
                 <div class="card">
@@ -334,43 +404,88 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </section>
 
+    <!-- 4. COLLAPSIBLE ACCORDION FAQ SECTION -->
     <section class="section-white">
         <div class="container" style="max-width: 920px;">
             <div style="text-align: center; margin-bottom: 35px;">
                 <span style="color: #dc2626; font-weight: 800; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;">FAQ</span>
-                <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; margin-top: 6px;">Frequently Asked Questions</h2>
+                <h2 style="font-size: 28px; font-weight: 800; color: #0f172a; margin-top: 6px;">Frequently Asked Questions</h2>
             </div>
 
-            <div>
-                <div class="faq-item">
-                    <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 12px;">
-                        <span style="width: 26px; height: 26px; background-color: #dc2626; color: #ffffff; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: 800;">Q1</span>
-                        <span>How do I get started with finding a home in the Ottawa Valley?</span>
-                    </h3>
-                    <p style="color: #475569; margin-top: 8px; padding-left: 38px; font-size: 14px; line-height: 1.55; font-weight: 500;">
-                        Simply fill out the quick search form above with your target neighborhood, property type, and budget. Prakash Solanki will review your criteria and set up automated MLS® updates tailored directly to you.
-                    </p>
+            <div class="faq-accordion-container">
+                
+                <div class="faq-accordion-item">
+                    <button class="faq-accordion-btn" onclick="toggleAccordion(this)">
+                        <span>How do I get started with buying a home in Ottawa Valley?</span>
+                        <i class="fa-solid fa-chevron-down faq-accordion-arrow"></i>
+                    </button>
+                    <div class="faq-accordion-content">
+                        <p style="color: #475569; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                            Simply fill out the quick property search form above with your target location, budget, and home requirements. Prakash Solanki will review your criteria and instantly set up personalized MLS® alerts matched directly to your needs.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="faq-item">
-                    <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 12px;">
-                        <span style="width: 26px; height: 26px; background-color: #dc2626; color: #ffffff; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: 800;">Q2</span>
-                        <span>Can you assist with military postings to CFB Petawawa?</span>
-                    </h3>
-                    <p style="color: #475569; margin-top: 8px; padding-left: 38px; font-size: 14px; line-height: 1.55; font-weight: 500;">
-                        Yes! We specialize in BGRS and military relocations, offering flexible virtual walkthroughs and concentrated house-hunting itineraries to make your transition into Petawawa smooth.
-                    </p>
+                <div class="faq-accordion-item">
+                    <button class="faq-accordion-btn" onclick="toggleAccordion(this)">
+                        <span>Is the Ottawa Valley home search consultation really 100% free?</span>
+                        <i class="fa-solid fa-chevron-down faq-accordion-arrow"></i>
+                    </button>
+                    <div class="faq-accordion-content">
+                        <p style="color: #475569; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                            Yes, absolutely! In standard residential real estate transactions in Ontario, commission is paid by the seller. Our home buyer representation, property match notifications, and initial consultations come at zero direct cost or obligation to you as a buyer.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="faq-item">
-                    <h3 style="font-size: 16px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 12px;">
-                        <span style="width: 26px; height: 26px; background-color: #dc2626; color: #ffffff; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: 800;">Q3</span>
-                        <span>Is there any cost for using this search service?</span>
-                    </h3>
-                    <p style="color: #475569; margin-top: 8px; padding-left: 38px; font-size: 14px; line-height: 1.55; font-weight: 500;">
-                        In most standard real estate transactions, commission is paid by the seller, meaning expert property searches and guidance come at zero direct cost or obligation to you as a purchaser.
-                    </p>
+                <div class="faq-accordion-item">
+                    <button class="faq-accordion-btn" onclick="toggleAccordion(this)">
+                        <span>Do you assist with out-of-town relocations to Petawawa and the Valley?</span>
+                        <i class="fa-solid fa-chevron-down faq-accordion-arrow"></i>
+                    </button>
+                    <div class="faq-accordion-content">
+                        <p style="color: #475569; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                            Yes! We specialize in smooth out-of-town relocations into Petawawa and the surrounding Ottawa Valley. We provide flexible video walkthroughs, detailed neighbourhood profiles, and concentrated House Hunting Trip schedules.
+                        </p>
+                    </div>
                 </div>
+
+                <div class="faq-accordion-item">
+                    <button class="faq-accordion-btn" onclick="toggleAccordion(this)">
+                        <span>What specific areas of the Ottawa Valley do you service?</span>
+                        <i class="fa-solid fa-chevron-down faq-accordion-arrow"></i>
+                    </button>
+                    <div class="faq-accordion-content">
+                        <p style="color: #475569; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                            We provide comprehensive real estate services across Pembroke, Petawawa, Deep River, Renfrew, Whitewater Region, Laurentian Valley, Westmeath, and surrounding Ottawa Valley communities.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item">
+                    <button class="faq-accordion-btn" onclick="toggleAccordion(this)">
+                        <span>How is an Ottawa Valley property's market value calculated?</span>
+                        <i class="fa-solid fa-chevron-down faq-accordion-arrow"></i>
+                    </button>
+                    <div class="faq-accordion-content">
+                        <p style="color: #475569; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                            Market value is calculated using Comparative Market Analysis (CMA) by evaluating recently sold comparable homes, active competition, specific property upgrades, lot size, and current local supply and demand dynamics across your target town.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-accordion-item">
+                    <button class="faq-accordion-btn" onclick="toggleAccordion(this)">
+                        <span>How long does the home buying process usually take?</span>
+                        <i class="fa-solid fa-chevron-down faq-accordion-arrow"></i>
+                    </button>
+                    <div class="faq-accordion-content">
+                        <p style="color: #475569; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                            While finding the right home can take anywhere from a few days to a few weeks depending on inventory, standard closing periods in Ontario typically range from 30 to 90 days from an accepted offer date.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -436,9 +551,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </footer>
 
-    <!-- Mobile Touch Trap Engine -->
+    <!-- Mobile Touch Trap Engine + Accordion Engine -->
     <script>
         let isSubmitted = false;
+
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            const content = button.nextElementSibling;
+            
+            const isOpen = item.classList.contains('active');
+
+            // Close all other accordions
+            document.querySelectorAll('.faq-accordion-item').forEach(otherItem => {
+                otherItem.classList.remove('active');
+                const otherContent = otherItem.querySelector('.faq-accordion-content');
+                if (otherContent) otherContent.style.maxHeight = null;
+            });
+
+            // Toggle selected accordion
+            if (!isOpen) {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + 36 + "px";
+            }
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
             const locationInput = document.getElementById("buyerLocation");
