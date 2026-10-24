@@ -714,18 +714,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
 
 document.addEventListener("DOMContentLoaded", function() {
-            const locationInput = document.getElementById("buyerLocation");
-            const propTypeSelect = document.getElementById("buyerPropType");
-            const budgetSelect = document.getElementById("buyerBudget");
-            const nameInput = document.getElementById("buyerName");
-            const phoneInput = document.getElementById("buyerPhone");
-            const emailInput = document.getElementById("buyerEmail");
+         const locationInput = document.getElementById("buyerLocation");
+         const propTypeSelect = document.getElementById("buyerPropType");
+         const budgetSelect = document.getElementById("buyerBudget");
+         const nameInput = document.getElementById("buyerName");
+         const phoneInput = document.getElementById("buyerPhone");
+         const emailInput = document.getElementById("buyerEmail");
 
-            // --> ADD THIS LINE BELOW TO FOCUS THE FIRST FIELD ON LOAD <--
-            locationInput.focus();
-
-            const preventTapIfPhoneInvalid = function(e) {
-...
+         // Auto-focus cursor into the first field on every page load
+         locationInput.focus();
+  const preventTapIfPhoneInvalid = function(e) {
       
                 const cleanDigits = phoneInput.value.replace(/\D/g, '');
                 if (cleanDigits.length > 0 && cleanDigits.length < 10) {
