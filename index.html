@@ -118,7 +118,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(2, 6, 23, 0.95), rgba(7, 13, 29, 0.91)); z-index: 1; }
         .hero-content-wrapper { position: relative; z-index: 10; max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
         @media(min-width: 1024px) {
-            .hero-content-wrapper { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 40px; }
+            .hero-content-wrapper { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 48px; }
             .hero { padding: 65px 24px 95px; }
         }
 
@@ -193,7 +193,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             display: block;
         }
 
-        .form-card { background: rgba(255, 255, 255, 0.99); color: #0f172a; padding: 24px 20px; border-radius: 18px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 25px rgba(0, 51, 153, 0.3); border: 2px solid #003399; width: 100%; max-width: 440px; margin: 0 auto; }
+        .form-card { background: rgba(255, 255, 255, 0.99); color: #0f172a; padding: 24px 20px; border-radius: 18px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 25px rgba(0, 51, 153, 0.3); border: 2px solid #003399; width: 100%; max-width: 460px; margin: 0 auto; }
         @media(min-width: 768px) { .form-card { padding: 32px; } }
         .form-group { margin-bottom: 14px; }
         .form-label { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #334155; margin-bottom: 5px; }
@@ -314,8 +314,76 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="hero-content-wrapper">
             
-            <!-- LEFT COLUMN: LEAD CAPTURE FORM WITH FREE SERVICE BADGE AT TOP -->
-            <div style="width: 100%; max-width: 440px; flex-shrink: 0; order: 1;" class="lg:order-1">
+            <!-- LEFT COLUMN: CONTENT, HEADLINE, AGENT CARD & FEATURES (DESKTOP LEFT / MOBILE BOTTOM) -->
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 20px; max-width: 680px; order: 2;" class="lg:order-1">
+                <h1 style="font-size: 32px; font-weight: 900; line-height: 1.15; letter-spacing: -0.02em;">
+                    Find Your Next Home in Ottawa Valley & Surrounding Area
+                </h1>
+
+                <p style="font-size: 15px; color: #cbd5e1; line-height: 1.55;">
+                    Get customized home searches curated around your preferred schools, commutes, and lifestyle across Pembroke, Petawawa, Deep River & the Ottawa Valley.
+                </p>
+
+                <!-- AGENT IDENTITY CARD -->
+                <div class="agent-card">
+                    <div class="agent-photo-frame">
+                        <img src="Prakash_new_pic.PNG" alt="Prakash Solanki, REALTOR®">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; align-items: center;" class="sm:items-start">
+                        <!-- RE/MAX Logo + Authorized Agent Badge -->
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;" class="sm:justify-start">
+                            <img src="Remax_with_balloon_2.jpg" alt="RE/MAX Logo" style="height: 18px; width: auto; object-fit: contain; background: #ffffff; padding: 1px 4px; border-radius: 4px;" onerror="this.onerror=null; this.src='Remax_with_balloon.jpg';">
+                            <span style="font-size: 10px; font-weight: 800; color: #60a5fa; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(0, 51, 153, 0.5); padding: 2px 8px; border-radius: 9999px; border: 1px solid rgba(96, 165, 250, 0.4);">
+                                Authorized RE/MAX® Agent
+                            </span>
+                        </div>
+
+                        <h4 style="font-size: 17px; font-weight: 800; color: #ffffff; line-height: 1.2; margin-top: 2px;">
+                            Prakash Solanki, <span style="color: #60a5fa; font-weight: 700;">REALTOR®</span>
+                        </h4>
+                        
+                        <p style="font-size: 12px; color: #cbd5e1; font-weight: 600;">
+                            RE/MAX Pembroke Realty Ltd., Brokerage
+                        </p>
+
+                        <a href="tel:16132033313" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: #ef4444; text-decoration: none; margin-top: 2px;">
+                            <i class="fa-solid fa-phone" style="font-size: 12px;"></i>
+                            <span>(613) 203-3313</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FEATURE CARD BOX -->
+                <div class="feature-box">
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">🧡</span>
+                        <span><strong style="color: #ffffff;">Buyers: Free, no-obligation service</strong></span>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">🏠</span>
+                        <span><strong style="color: #ffffff;">Secure Your Dream Home:</strong> Full-service guidance from initial search to closing day.</span>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">☕</span>
+                        <span><strong style="color: #ffffff;">Free Consultation:</strong> Get a competitive edge in today's local market with zero obligation.</span>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">⚡</span>
+                        <span><strong style="color: #ffffff;">Live MLS® Alerts:</strong> Custom property updates tailored to your budget.</span>
+                    </div>
+
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
+                        <span style="font-size: 16px; flex-shrink: 0;">🎯</span>
+                        <span><strong style="color: #ffffff;">Deep Insights:</strong> Expert guidance across Pembroke, Petawawa, Deep River & surrounding areas for a seamless move.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: LEAD CAPTURE FORM (DESKTOP RIGHT / MOBILE TOP) -->
+            <div style="width: 100%; max-width: 460px; flex-shrink: 0; order: 1;" class="lg:order-2">
                 <div class="form-card" id="buyerFormCard">
                     <div style="text-align: center; margin-bottom: 20px;">
                         <div style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #003399, #002266); border: 1px solid #3b82f6; color: #ffffff; padding: 6px 14px; border-radius: 9999px; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.04em; box-shadow: 0 4px 12px rgba(0, 51, 153, 0.3);">
@@ -429,75 +497,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <p style="font-size: 15px; color: #475569; line-height: 1.6; font-weight: 500;">Thank you! Prakash Solanki reviews your search parameters and reaches out promptly with curated MLS® properties matching your needs.</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- RIGHT COLUMN: CONTENT, HEADLINE, AGENT CARD & FEATURES -->
-            <div style="flex: 1; display: flex; flex-direction: column; gap: 20px; max-width: 680px; order: 2;" class="lg:order-2">
-                <h1 style="font-size: 32px; font-weight: 900; line-height: 1.15; letter-spacing: -0.02em;">
-                    Find Your Next Home in Ottawa Valley & Surrounding Area
-                </h1>
-
-                <p style="font-size: 15px; color: #cbd5e1; line-height: 1.55;">
-                    Get customized home searches curated around your preferred schools, commutes, and lifestyle across Pembroke, Petawawa, Deep River & the Ottawa Valley.
-                </p>
-
-                <!-- AGENT IDENTITY CARD WITH LARGER PHOTO & MATCHING LAYOUT -->
-                <div class="agent-card">
-                    <div class="agent-photo-frame">
-                        <img src="Prakash_new_pic.PNG" alt="Prakash Solanki, REALTOR®">
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0; align-items: center;" class="sm:items-start">
-                        <!-- RE/MAX Logo + Authorized Agent Badge -->
-                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;" class="sm:justify-start">
-                            <img src="Remax_with_balloon_2.jpg" alt="RE/MAX Logo" style="height: 18px; width: auto; object-fit: contain; background: #ffffff; padding: 1px 4px; border-radius: 4px;" onerror="this.onerror=null; this.src='Remax_with_balloon.jpg';">
-                            <span style="font-size: 10px; font-weight: 800; color: #60a5fa; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(0, 51, 153, 0.5); padding: 2px 8px; border-radius: 9999px; border: 1px solid rgba(96, 165, 250, 0.4);">
-                                Authorized RE/MAX® Agent
-                            </span>
-                        </div>
-
-                        <h4 style="font-size: 17px; font-weight: 800; color: #ffffff; line-height: 1.2; margin-top: 2px;">
-                            Prakash Solanki, <span style="color: #60a5fa; font-weight: 700;">REALTOR®</span>
-                        </h4>
-                        
-                        <p style="font-size: 12px; color: #cbd5e1; font-weight: 600;">
-                            RE/MAX Pembroke Realty Ltd., Brokerage
-                        </p>
-
-                        <a href="tel:16132033313" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: #ef4444; text-decoration: none; margin-top: 2px;">
-                            <i class="fa-solid fa-phone" style="font-size: 12px;"></i>
-                            <span>(613) 203-3313</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- FEATURE CARD BOX -->
-                <div class="feature-box">
-                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
-                        <span style="font-size: 16px; flex-shrink: 0;">🧡</span>
-                        <span><strong style="color: #ffffff;">Buyers: Free, no-obligation service</strong></span>
-                    </div>
-
-                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
-                        <span style="font-size: 16px; flex-shrink: 0;">🏠</span>
-                        <span><strong style="color: #ffffff;">Secure Your Dream Home:</strong> Full-service guidance from initial search to closing day.</span>
-                    </div>
-
-                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
-                        <span style="font-size: 16px; flex-shrink: 0;">☕</span>
-                        <span><strong style="color: #ffffff;">Free Consultation:</strong> Get a competitive edge in today's local market with zero obligation.</span>
-                    </div>
-
-                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
-                        <span style="font-size: 16px; flex-shrink: 0;">⚡</span>
-                        <span><strong style="color: #ffffff;">Live MLS® Alerts:</strong> Custom property updates tailored to your budget.</span>
-                    </div>
-
-                    <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ffffff; line-height: 1.5;">
-                        <span style="font-size: 16px; flex-shrink: 0;">🎯</span>
-                        <span><strong style="color: #ffffff;">Deep Insights:</strong> Expert guidance across Pembroke, Petawawa, Deep River & surrounding areas for a seamless move.</span>
-                    </div>
-                </div>
-
             </div>
 
         </div>
@@ -637,7 +636,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
     </section>
 
-    <!-- 5. STREAMLINED PROFESSIONAL FOOTER (UPDATED PER IMAGE 4 & 5) -->
+    <!-- 5. STREAMLINED PROFESSIONAL FOOTER -->
     <footer class="bg-slate-950 text-slate-300 pt-12 pb-28 sm:pb-16 px-4 sm:px-6 lg:px-8 border-t-4 border-remax-red relative overflow-hidden w-full">
         <div class="absolute bottom-0 right-0 w-96 h-96 bg-remax-blue/10 blur-[100px] pointer-events-none"></div>
 
