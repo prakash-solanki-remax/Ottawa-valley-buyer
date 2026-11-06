@@ -255,38 +255,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </a>
 
         <!-- CENTER: RE/MAX LOGO -->
-    <!--    <div class="flex items-center justify-center flex-shrink-0 px-1 sm:px-4">
-            <div class="bg-[#00205B] px-3 py-1.5 rounded-xl shadow-md border border-white/20 flex items-center justify-center">
-                <img src="Remax_with_balloon_2.png" alt="RE/MAX Logo" class="h-9 sm:h-11 md:h-12 w-auto object-contain transition-all" onerror="this.onerror=null; this.src='Remax_with_balloon_2.png';">
-            </div>
-        </div>
-      -->
         <div class="flex items-center justify-center flex-shrink-0 px-1 sm:px-4">
-                <img src="Remax_with_balloon_2.png" alt="RE/MAX Logo" class="h-9 sm:h-11 md:h-12 w-auto object-contain transition-all" onerror="this.onerror=null; this.src='Remax_with_balloon_2.png';">
+            <img src="Remax_with_balloon_2.png" alt="RE/MAX Logo" class="h-9 sm:h-11 md:h-12 w-auto object-contain transition-all" onerror="this.onerror=null; this.src='Remax_with_balloon_2.png';">
         </div>
 
+        <!-- RIGHT: BUTTONS (DESKTOP) -->
+        <div class="hidden md:flex items-center gap-2 flex-shrink-0">
+            <!-- HOME BUTTON -->
+            <a href="https://solankihomes.ca" class="inline-flex items-center gap-1.5 bg-remax-blue hover:bg-blue-900 text-white font-black px-3.5 py-2.5 rounded-xl text-sm transition-all duration-200 shadow-md whitespace-nowrap">
+                <svg class="w-4 h-4 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 9.414V17a1 1 0 001 1h2a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h2a1 1 0 001-1V9.414l1.293 1.293a1 1 0 001.414-1.414l-7-7z"/>
+                </svg>
+                <span>Home</span>
+            </a>
 
-
-
-        
-        <!-- RIGHT: CLICK-TO-CALL BUTTON (DESKTOP) -->
-        <div class="hidden md:flex items-center flex-shrink-0">
-            <a href="tel:16132033313" class="inline-flex items-center gap-2 bg-remax-red hover:bg-red-700 text-white font-black px-4 py-2.5 rounded-xl text-sm transition-all duration-200 shadow-md whitespace-nowrap">
+            <!-- PHONE BUTTON -->
+            <a href="tel:16132033313" class="inline-flex items-center gap-1.5 bg-remax-red hover:bg-red-700 text-white font-black px-3.5 py-2.5 rounded-xl text-sm transition-all duration-200 shadow-md whitespace-nowrap">
                 <svg class="w-4 h-4 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
                 <span>(613) 203-3313</span>
             </a>
         </div>
     </div>
 
-    <!-- MOBILE-ONLY SECOND ROW FOR PHONE BUTTON -->
-    <div class="flex md:hidden items-center justify-center w-full px-3 py-2 bg-[#00205B] border-t border-white/10">
-        <a href="tel:16132033313" class="w-full inline-flex items-center justify-center gap-2 bg-remax-red hover:bg-red-700 text-white font-black px-4 py-2 rounded-xl text-xs transition-all duration-200 shadow-md">
+    <!-- MOBILE-ONLY SECOND ROW FOR BUTTONS -->
+    <div class="flex md:hidden items-center justify-center gap-2 w-full px-3 py-2 bg-[#00205B] border-t border-white/10">
+        <!-- HOME BUTTON (MOBILE) -->
+        <a href="https://solankihomes.ca" class="flex-1 inline-flex items-center justify-center gap-1.5 bg-remax-blue hover:bg-blue-900 text-white font-black px-3 py-2 rounded-xl text-xs transition-all duration-200 shadow-md">
+            <svg class="w-3.5 h-3.5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 9.414V17a1 1 0 001 1h2a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h2a1 1 0 001-1V9.414l1.293 1.293a1 1 0 001.414-1.414l-7-7z"/>
+            </svg>
+            <span>Home</span>
+        </a>
+
+        <!-- PHONE BUTTON (MOBILE) -->
+        <a href="tel:16132033313" class="flex-1 inline-flex items-center justify-center gap-1.5 bg-remax-red hover:bg-red-700 text-white font-black px-3 py-2 rounded-xl text-xs transition-all duration-200 shadow-md">
             <svg class="w-3.5 h-3.5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
-            <span>Call (613) 203-3313</span>
+            <span>Call</span>
         </a>
     </div>
-</header> 
-    <section class="hero">
+</header>
+  
+  <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
 
